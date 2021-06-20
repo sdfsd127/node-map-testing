@@ -1,0 +1,611 @@
+Using pre-set license
+Built from '2021.1/staging' branch; Version is '2021.1.11f1 (4d8c25f7477e) revision 5082149'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Home; OS build 19041.985; Version 2004; 64bit' Language: 'en' Physical Memory: 16336 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.1.11f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/callu/Documents/GitHub/node-map-testing/Node Map Testing
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+55027
+Successfully changed project path to: C:/Users/callu/Documents/GitHub/node-map-testing/Node Map Testing
+C:/Users/callu/Documents/GitHub/node-map-testing/Node Map Testing
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 81.17 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.1.11f1 (4d8c25f7477e)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.1.11f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/callu/Documents/GitHub/node-map-testing/Node Map Testing/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 6GB (ID=0x1c03)
+    Vendor:   NVIDIA
+    VRAM:     6052 MB
+    Driver:   27.21.14.6109
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.1.11f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.1.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.1.11f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56844
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.1.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001999 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 75.42 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.225 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1225ms)
+		BeginReloadAssembly (51ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (457ms)
+			LoadAssemblies (49ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (161ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (29ms)
+			SetupLoadedEditorAssemblies (223ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (75ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (107ms)
+				ProcessInitializeOnLoadMethodAttributes (33ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.007162 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.50 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.062 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1062ms)
+		BeginReloadAssembly (146ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (21ms)
+		EndReloadAssembly (857ms)
+			LoadAssemblies (82ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (338ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (45ms)
+			SetupLoadedEditorAssemblies (302ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (72ms)
+				ProcessInitializeOnLoadAttributes (212ms)
+				ProcessInitializeOnLoadMethodAttributes (5ms)
+				AfterProcessingInitializeOnLoad (7ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.60 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2939 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.8 MB.
+System memory in use after: 106.0 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 3385.
+Total: 2.139200 ms (FindLiveObjects: 0.206500 ms CreateObjectMapping: 0.128400 ms MarkObjects: 1.705000 ms  DeleteObjects: 0.098600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/Scripts/NodeMapMarker.cs
+  artifactKey: Guid(8cadb76d52e7372418a6a260a238649d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/NodeMapMarker.cs using Guid(8cadb76d52e7372418a6a260a238649d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'defbb8f4f032fcc8ecce16861b0c7964') in 0.043742 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 14.002711 seconds.
+  path: Assets/Scripts/NodeSequence.cs
+  artifactKey: Guid(4b337f1ea4128f0419c63bc0d5c3956a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/NodeSequence.cs using Guid(4b337f1ea4128f0419c63bc0d5c3956a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46a3767be7a039dfd1a4f316b61f5056') in 0.008040 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006670 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  2.255 seconds
+Domain Reload Profiling:
+	ReloadAssembly (2255ms)
+		BeginReloadAssembly (128ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (37ms)
+		EndReloadAssembly (2063ms)
+			LoadAssemblies (86ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (348ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (41ms)
+			SetupLoadedEditorAssemblies (1476ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (140ms)
+				ProcessInitializeOnLoadAttributes (1316ms)
+				ProcessInitializeOnLoadMethodAttributes (5ms)
+				AfterProcessingInitializeOnLoad (9ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (10ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.55 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2935 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.8 MB.
+System memory in use after: 106.0 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3389.
+Total: 2.303300 ms (FindLiveObjects: 0.228100 ms CreateObjectMapping: 0.176700 ms MarkObjects: 1.815100 ms  DeleteObjects: 0.082300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 32.600034 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c1d6e87101f99df9051d5954995f9a5') in 0.155836 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 18.134945 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e61314b6700a3bd83c1a49472fd32c03') in 0.049660 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008283 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.51 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.985 seconds
+Domain Reload Profiling:
+	ReloadAssembly (985ms)
+		BeginReloadAssembly (110ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (32ms)
+		EndReloadAssembly (817ms)
+			LoadAssemblies (81ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (318ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (38ms)
+			SetupLoadedEditorAssemblies (285ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (51ms)
+				ProcessInitializeOnLoadAttributes (216ms)
+				ProcessInitializeOnLoadMethodAttributes (4ms)
+				AfterProcessingInitializeOnLoad (8ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.57 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2935 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 109.7 MB.
+System memory in use after: 109.9 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3403.
+Total: 2.280000 ms (FindLiveObjects: 0.247800 ms CreateObjectMapping: 0.224700 ms MarkObjects: 1.764600 ms  DeleteObjects: 0.041900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 28.106133 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5e09ccb2b8d3c54ac2dda9a8d861dcf') in 0.082835 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 36.583177 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41d805f3adc75a4c0298a7d1e95da47a') in 0.051549 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.023069 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d4842c915759d9f278aa6ad1c978a27') in 0.041421 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.725573 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'caaeca31f754b3c3cecf7c55198abb3a') in 0.056062 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.683011 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b230749b9f0f29ada91919981fda30f3') in 0.052034 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.425321 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df37d83ee2bd02c5092ad3dde51a5a9a') in 0.046024 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.059132 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '861328308396ae571f9d60e61c2cff70') in 0.053212 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 16.588122 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bb21f5888acfb75f1972330a0c13827') in 0.049880 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 8.952042 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b73bf08d1052ea488f18f1210e82ee18') in 0.054236 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 9.511879 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e3e03e60112bfdc78eb776ef2bffef6') in 0.051117 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.672896 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fdf3809fca9611980ba7584da36d6989') in 0.055566 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.826844 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '986eb6b42acbb2e2927a9a3d7f8d8b4d') in 0.043714 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.625381 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '162b8ccccfc0ea7b3f19ff406e2aa16f') in 0.049954 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.415298 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0c61e03c2db576ae3b04e29a0948396') in 0.040521 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.243333 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b84a5effedf03ca8d440d2135d1f45eb') in 0.051502 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.430174 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '51564902e2a465795a60948e0779c390') in 0.049531 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.091341 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '636d01ed31e3426fdfa1f0c0e2721139') in 0.052082 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.843483 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa2fe6f9dfb2dc0d8370ba5a45fe4d55') in 0.048765 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.997641 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e125d9921e6984ef9df588c60ec37895') in 0.039338 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 7.728423 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a96ecc766c464136c78f4661e00db94a') in 0.049315 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 7.410623 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06d3b9da87e68a1acd6c494011050703') in 0.041266 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.370551 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6d9bb5c724de9844cc574102f1f7ea0') in 0.049101 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.596983 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd9c24aa8947f8053bc7fcd4a47a226e8') in 0.044633 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.535298 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8952b97ace2d92d1e2359d70574b6fca') in 0.042322 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 7.565755 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '454ec3fcf520b1d7c240f2039275fac5') in 0.042056 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.250592 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c7f46587d3ccdf8425368c10af7cbda') in 0.042292 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.533372 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e0936ab4c504753539840ebd203d5e5') in 0.047411 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 8.284120 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd75203d44a50b38a997a055d5a47286f') in 0.043238 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.307780 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '381195cee171d56fa291a18f51befbcb') in 0.036737 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.102833 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e35f31d8d6fe4ffb0902bf507ea7c88') in 0.048123 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.915026 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7744ed4f0ca9fd551e6d538187d794d7') in 0.047605 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 3.644325 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e345001819fe971866525a93d1f65f70') in 0.047273 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 8.695856 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d23565796316504670f000baad9ab88') in 0.046156 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 13.839364 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56369214d62ce0a4ac0a4d7b507780ef') in 0.045559 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 5.763012 seconds.
+  path: Assets/Prefabs/Ireland Map Object.prefab
+  artifactKey: Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Ireland Map Object.prefab using Guid(e6a50d3bbda3ac74cafe62a96ba51c51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aecacb00d43c0023583afef0d5601a8f') in 0.044844 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 124.493086 seconds.
+  path: Assets/Scripts/Triangulation.cs
+  artifactKey: Guid(067eccf2ceefc884aa5258575eca2261) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Triangulation.cs using Guid(067eccf2ceefc884aa5258575eca2261) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18b6fc0afca26fb72ef135571c3773fd') in 0.012707 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006466 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.034 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1034ms)
+		BeginReloadAssembly (108ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (35ms)
+		EndReloadAssembly (863ms)
+			LoadAssemblies (83ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (329ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (297ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (55ms)
+				ProcessInitializeOnLoadAttributes (221ms)
+				ProcessInitializeOnLoadMethodAttributes (6ms)
+				AfterProcessingInitializeOnLoad (7ms)
+				EditorAssembliesLoaded (1ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.52 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2936 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.1 MB.
+System memory in use after: 110.3 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3408.
+Total: 2.224400 ms (FindLiveObjects: 0.202700 ms CreateObjectMapping: 0.124800 ms MarkObjects: 1.818900 ms  DeleteObjects: 0.077300 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 2116.691130 seconds.
+  path: Assets/Scripts/Triangulation.cs
+  artifactKey: Guid(067eccf2ceefc884aa5258575eca2261) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Triangulation.cs using Guid(067eccf2ceefc884aa5258575eca2261) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78948225c8ded1eb387dbda2f89e4b30') in 0.011084 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006640 seconds.
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\callu\Documents\GitHub\node-map-testing\Node Map Testing\Library\PackageCache\com.unity.visualscripting@1.6.1\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.997 seconds
+Domain Reload Profiling:
+	ReloadAssembly (997ms)
+		BeginReloadAssembly (121ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (4ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (35ms)
+		EndReloadAssembly (817ms)
+			LoadAssemblies (91ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (322ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (278ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (54ms)
+				ProcessInitializeOnLoadAttributes (206ms)
+				ProcessInitializeOnLoadMethodAttributes (5ms)
+				AfterProcessingInitializeOnLoad (8ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.60 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2936 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.2 MB.
+System memory in use after: 110.4 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3411.
+Total: 2.473700 ms (FindLiveObjects: 0.231800 ms CreateObjectMapping: 0.156300 ms MarkObjects: 2.026200 ms  DeleteObjects: 0.058000 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
