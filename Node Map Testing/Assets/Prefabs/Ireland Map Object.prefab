@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6786686972985700061}
   - component: {fileID: 6786686972985700058}
   - component: {fileID: 6786686972985700059}
-  - component: {fileID: 6786686972985700056}
   - component: {fileID: 7590696663932835175}
+  - component: {fileID: 5742016240316129846}
   m_Layer: 0
   m_Name: Ireland Map Object
   m_TagString: Untagged
@@ -118,20 +118,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6786686972985700056
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6786686972985700057}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &7590696663932835175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,16 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 5090563030910780376}
-  - {fileID: 5090563030836951985}
-  - {fileID: 5090563031924756144}
-  - {fileID: 5090563031914315673}
-  - {fileID: 5090563031859475876}
-  - {fileID: 5090563031077155290}
-  - {fileID: 5090563032721639143}
-  - {fileID: 5090563030904020868}
-  - {fileID: 5090563032731849062}
-  - {fileID: 8230553472800253545}
   - {fileID: 5090563031237170504}
   - {fileID: 5090563032805539679}
   - {fileID: 5090563031877461664}
@@ -179,6 +155,63 @@ MonoBehaviour:
   - {fileID: 5090563031925119552}
   - {fileID: 5090563030766840113}
   - {fileID: 5090563032707192886}
+  - {fileID: 5090563030910780376}
+  - {fileID: 5090563030836951985}
+  - {fileID: 5090563031924756144}
+  - {fileID: 5090563031914315673}
+  - {fileID: 5090563031859475876}
+  - {fileID: 5090563031077155290}
+  - {fileID: 5090563032721639143}
+  - {fileID: 5090563030904020868}
+  - {fileID: 5090563032731849062}
+  - {fileID: 8230553472800253545}
+--- !u!114 &5742016240316129846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786686972985700057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f5294fb58a37b4e9df5cc592ee90b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 5090563031237170504}
+  - {fileID: 5090563032805539679}
+  - {fileID: 5090563031877461664}
+  - {fileID: 5090563032044106479}
+  - {fileID: 5090563032330313772}
+  - {fileID: 5090563031296296834}
+  - {fileID: 5090563032257617990}
+  - {fileID: 5090563031733304481}
+  - {fileID: 5090563032607154751}
+  - {fileID: 5090563032339726253}
+  - {fileID: 5090563031305421145}
+  - {fileID: 5090563031104452611}
+  - {fileID: 5090563032454536524}
+  - {fileID: 5090563031354812461}
+  - {fileID: 5090563030736356701}
+  - {fileID: 5090563032760892479}
+  - {fileID: 5090563030732504942}
+  - {fileID: 5090563032553986480}
+  - {fileID: 5090563031607639920}
+  - {fileID: 5090563032599373267}
+  - {fileID: 5090563032413526590}
+  - {fileID: 5090563031925119552}
+  - {fileID: 5090563030766840113}
+  - {fileID: 5090563032707192886}
+  - {fileID: 5090563030910780376}
+  - {fileID: 5090563030836951985}
+  - {fileID: 5090563031924756144}
+  - {fileID: 5090563031914315673}
+  - {fileID: 5090563031859475876}
+  - {fileID: 5090563031077155290}
+  - {fileID: 5090563032721639143}
+  - {fileID: 5090563030904020868}
+  - {fileID: 5090563032731849062}
+  - {fileID: 8230553472800253545}
 --- !u!1001 &6786686972311138386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188,7 +221,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (33)
+      value: Roscrea
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -260,7 +293,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (26)
+      value: Dingle
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -332,7 +365,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (15)
+      value: Clonmel
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -404,7 +437,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (28)
+      value: Kinsale
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -476,7 +509,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (31)
+      value: Roscommon
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -548,7 +581,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (25)
+      value: Letterkenny
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -620,7 +653,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (21)
+      value: Dundalk
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -692,7 +725,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (24)
+      value: Londonderry Derry
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -764,7 +797,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (16)
+      value: Ennis
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -836,7 +869,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (11)
+      value: Athlone
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -908,7 +941,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (19)
+      value: Ballina
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -980,7 +1013,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (13)
+      value: Naas
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1052,7 +1085,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (8)
+      value: Lisburn
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1124,7 +1157,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (10)
+      value: Tralee
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1196,7 +1229,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (12)
+      value: Mullingar
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1268,7 +1301,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (3)
+      value: Limerick
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1340,7 +1373,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (18)
+      value: Westport
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1412,7 +1445,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (5)
+      value: Waterford
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1484,7 +1517,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (27)
+      value: Killarney
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1556,7 +1589,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (14)
+      value: Carlow
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1628,7 +1661,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (7)
+      value: Drogheda
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1700,7 +1733,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (1)
+      value: Belfast
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1772,7 +1805,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (2)
+      value: Galway
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1844,7 +1877,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (20)
+      value: Sligo
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1916,7 +1949,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (32)
+      value: Tuam
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -1988,7 +2021,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (29)
+      value: Clonakilty
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2060,7 +2093,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (6)
+      value: Wexford
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2132,7 +2165,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (23)
+      value: Omagh
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2204,7 +2237,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (17)
+      value: Castlebar
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2276,7 +2309,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (30)
+      value: Cavan
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2348,7 +2381,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (9)
+      value: Kilkenny
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2420,7 +2453,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (22)
+      value: Enniskillen
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2492,7 +2525,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node (4)
+      value: Cork
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
@@ -2564,7 +2597,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1768357483849701503, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: m_Name
-      value: Node
+      value: Dublin
       objectReference: {fileID: 0}
     - target: {fileID: 6289343723398434932, guid: c21dbcedd5d5e974496a403902e3e164, type: 3}
       propertyPath: location_name
