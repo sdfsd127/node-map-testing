@@ -116,4 +116,9 @@ public static class Utils
         else
             return false;
     }
+
+    public static bool SimilarFloats(float f1, float f2, float accuracy)
+    {
+        if (f1)
+    }
 }

@@ -328,11 +328,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ea4f57ddf81d74992ed25e81988669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lineObjectPrefab: {fileID: 1603421827391440068, guid: eed50e959909c514c8f235a95b38df87, type: 3}
   meshObjectPrefab: {fileID: 596739292344363468, guid: f1d0d2440c0ee7e44abc6fa74cb63cc8, type: 3}
   meshShader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
   mapObject: {fileID: 1515173257}
+  randomNodeSequence: 0
   earClipTriangulating: 0
   delaunayTriangulating: 0
+  createConnections: 1
 --- !u!4 &1104122784
 Transform:
   m_ObjectHideFlags: 0

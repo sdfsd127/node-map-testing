@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject lineObjectPrefab;
     [SerializeField] GameObject meshObjectPrefab;
     [SerializeField] Shader meshShader;
 
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     public bool earClipTriangulating;
     public bool delaunayTriangulating;
 
+    public bool createConnections;
+
     private void Start()
     {
         // Get the nodes on the map, random or sequenced, and use their positions
@@ -21,6 +24,14 @@ public class GameManager : MonoBehaviour
 
         // Run the triangulation algorithm and calculate
         Triangulate();
+
+        // Create connections between points using TRI list
+        if (createConnections)
+        {
+            ConnectionData[] connections = CreateConnections();
+            connections = RemoveDoubleConnections(connections);
+            DisplayConnections(connections);
+        }
     }
 
     private void Update()
@@ -93,35 +104,109 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /*
-    private void TestCircumcircle()
+    private ConnectionData[] CreateConnections()
     {
-        Vector2 pointA = new Vector2(2, 3);
-        Vector2 pointB = new Vector2(1, 1);
-        Vector2 pointC = new Vector2(3, 1);
+        Shape shapeData = Triangulation.EarClipTriangulate(nodes);
 
-        GameObject pointAObj = new GameObject("OBJECT A");
-        pointAObj.transform.position = new Vector3(pointA.x, 0, pointA.y);
-        GameObject pointBObj = new GameObject("OBJECT B");
-        pointBObj.transform.position = new Vector3(pointB.x, 0, pointB.y);
-        GameObject pointCObj = new GameObject("OBJECT C");
-        pointCObj.transform.position = new Vector3(pointC.x, 0, pointC.y);
+        List<ConnectionData> connections = new List<ConnectionData>();
 
-        Triangulation.GetCircumcircleData(new TriangleData(0, 1, 2, pointA, pointB, pointC), out radius, out centre);
+        for (int i = 0; i < shapeData.m_triangles.Length - 4; i += 3)
+        {
+            // Connect AB
+            connections.Add(new ConnectionData(shapeData.m_triangles[i], shapeData.m_triangles[i + 1], shapeData.m_vertices[shapeData.m_triangles[i]], shapeData.m_vertices[shapeData.m_triangles[i + 1]]));
 
-        ready = true;
+            // Connect AC
+            connections.Add(new ConnectionData(shapeData.m_triangles[i], shapeData.m_triangles[i + 2], shapeData.m_vertices[shapeData.m_triangles[i]], shapeData.m_vertices[shapeData.m_triangles[i + 2]]));
+
+            // Connect BC
+            connections.Add(new ConnectionData(shapeData.m_triangles[i + 1], shapeData.m_triangles[i + 2], shapeData.m_vertices[shapeData.m_triangles[i + 1]], shapeData.m_vertices[shapeData.m_triangles[i + 2]]));
+        }
+
+        return connections.ToArray();
     }
 
-    private Vector2 centre;
-    private float radius;
-    public bool ready;
-
-    private void OnDrawGizmos()
+    private void DisplayConnections(ConnectionData[] connections)
     {
-        if (circumcircleTesting && ready)
+        for (int i = 0; i < connections.Length; i++)
         {
-            Gizmos.DrawSphere(new Vector3(centre.x, 0, centre.y), radius);
+            ConnectionData currentConnection = connections[i];
+
+            // Create the line object
+            GameObject lineObject = Instantiate(lineObjectPrefab, Vector3.zero, Quaternion.identity);
+
+            // Create vertices array
+            Vector3[] vertices = new Vector3[2];
+            vertices[0] = new Vector3(currentConnection.aPointPosition.x, 0, currentConnection.aPointPosition.y);
+            vertices[1] = new Vector3(currentConnection.bPointPosition.x, 0, currentConnection.bPointPosition.y);
+
+            // Get the line renderer object
+            lineObject.GetComponent<LineRenderer>().SetPositions(vertices);
         }
     }
-    */
+
+    private ConnectionData[] RemoveDoubleConnections(ConnectionData[] connections)
+    {
+        List<ConnectionData> existingConnections = new List<ConnectionData>();
+
+        for (int i = 0; i < connections.Length; i++)
+        {
+            ConnectionData currentConnection = connections[i];
+
+            if (!ConnectionPresent(existingConnections, currentConnection))
+                existingConnections.Add(currentConnection);
+        }
+
+        return existingConnections.ToArray();
+    }
+
+    private bool ConnectionPresent(List<ConnectionData> connections, ConnectionData target)
+    {
+        for (int i = 0; i < connections.Count; i++)
+        {
+            if (target.Equals(connections[i]))
+                return true;
+        }
+
+        return false;
+    }
+}
+
+public class ConnectionData
+{
+    public Vector2 aPointPosition;
+    public Vector2 bPointPosition;
+    public int aPointIndex;
+    public int bPointIndex;
+
+    public int sizeOfConnection;
+
+    public ConnectionData() { }
+
+    public ConnectionData(int ia, int ib, Vector2 va, Vector2 vb)
+    {
+        aPointIndex = ia;
+        bPointIndex = ib;
+
+        aPointPosition = va;
+        bPointPosition = vb;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || !this.GetType().Equals(obj.GetType()))
+            return false;
+        else
+        {
+            ConnectionData cd = (ConnectionData)obj;
+            return this.Equal(cd);
+        }
+    }
+
+    public bool Equal(ConnectionData other)
+    {
+        if (other.aPointPosition == aPointPosition && other.bPointPosition == bPointPosition)
+            return true;
+        else
+            return false;
+    }
 }
