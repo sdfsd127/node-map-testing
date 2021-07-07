@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MathHelper;
 
 public class GameManager : MonoBehaviour
 {
@@ -59,10 +60,10 @@ public class GameManager : MonoBehaviour
 
     private void Triangulate()
     {
-        if (earClipTriangulating)
+        if (earClipTriangulating && !createConnections)
             EarClipTriangulateMeshSetup();
 
-        if (delaunayTriangulating)
+        if (delaunayTriangulating && !createConnections)
             DelaunayTriangulateMeshSetup();
     }
 
@@ -106,7 +107,11 @@ public class GameManager : MonoBehaviour
 
     private ConnectionData[] CreateConnections()
     {
-        Shape shapeData = Triangulation.EarClipTriangulate(nodes);
+        Shape shapeData = new Shape();
+        if (earClipTriangulating)
+            shapeData = Triangulation.EarClipTriangulate(nodes);
+        if (delaunayTriangulating)
+            shapeData = Triangulation.DelaunayTriangulate(nodes);
 
         List<ConnectionData> connections = new List<ConnectionData>();
 
@@ -204,7 +209,7 @@ public class ConnectionData
 
     public bool Equal(ConnectionData other)
     {
-        if (other.aPointPosition == aPointPosition && other.bPointPosition == bPointPosition)
+        if ((other.aPointPosition == aPointPosition && other.bPointPosition == bPointPosition) || (other.bPointPosition == aPointPosition && other.aPointPosition == bPointPosition))
             return true;
         else
             return false;
