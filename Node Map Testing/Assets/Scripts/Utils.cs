@@ -69,5 +69,21 @@ namespace MathHelper
 
             return array[index];
         }
+
+        public static void DebugList<T>(List<T> list)
+        {
+            foreach (T t in list)
+            {
+                Debug.Log(t);
+            }
+        }
+
+        public static void DebugArray<T>(T[] array)
+        {
+            foreach (T t in array)
+            {
+                Debug.Log(t);
+            }
+        }
     }
 }

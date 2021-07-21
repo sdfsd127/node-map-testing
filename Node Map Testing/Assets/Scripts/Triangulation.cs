@@ -136,6 +136,11 @@ namespace MathHelper
                     Vector2 circleCentre;
                     GetCircumcircleData(currentTriangle, out circleRadius, out circleCentre);
 
+                    Debug.Log("CENTRE: " + circleCentre);
+                    Debug.Log("RADIUS: " + circleRadius);
+                    Debug.Log("VERTEX: " + vertexPositions[i]);
+                    Debug.Log(IsVertexInsideCircumcircle(vertexPositions[i], circleRadius, circleCentre));
+
                     // Check if the current vertex is inside the current triangles circumcircle
                     if (IsVertexInsideCircumcircle(vertexPositions[i], circleRadius, circleCentre))
                     {
