@@ -334,7 +334,7 @@ MonoBehaviour:
   mapObject: {fileID: 1515173257}
   randomNodeSequence: 0
   earClipTriangulating: 0
-  delaunayTriangulating: 0
+  delaunayTriangulating: 1
   createConnections: 1
 --- !u!4 &1104122784
 Transform:
