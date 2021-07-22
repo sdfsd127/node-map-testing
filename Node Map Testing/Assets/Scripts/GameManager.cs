@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
             connections = RemoveDoubleConnections(connections);
             DisplayConnections(connections);
         }
+<<<<<<< Updated upstream
+=======
+
+        if (produceEndMap)
+            CreateFullMap();
+>>>>>>> Stashed changes
     }
 
     private void Update()
@@ -47,6 +53,30 @@ public class GameManager : MonoBehaviour
             GetNodes();
             Triangulate();
         }
+
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            CreateFullMap();
+        }
+    }
+
+    private void CreateFullMap()
+    {
+        RemoveOldMap();
+
+        Shape newShape = Triangulation.EarClipTriangulate(nodes);
+        MapData newMap = new MapData(newShape, CreateConnections(newShape));
+
+        newMap.CreateRouteLength();
+        newMap.CreateRouteColours();
+        newMap.DisplayRoutes(multiLineObjectPrefab);
+    }
+
+    private void RemoveOldMap()
+    {
+        GameObject oldMap = GameObject.Find("Parent MultiLine Object");
+        if (oldMap != null)
+            Destroy(oldMap);
     }
 
     private void GetNodes()
@@ -209,4 +239,202 @@ public class ConnectionData
         else
             return false;
     }
+<<<<<<< Updated upstream
+=======
+
+    public float GetDistance()
+    {
+        return Vector2.Distance(aPointPosition, bPointPosition);
+    }
+
+    public void SetRouteLength(int length, int routeNum = 1)
+    {
+        if (routeNum == 1)
+            routeOne.SetRouteSize(length);
+        else
+            routeTwo.SetRouteSize(length);
+    }
+
+    public int GetRouteLength(int routeNum = 1)
+    {
+        if (routeNum == 1)
+            return routeOne.route_size;
+        else
+            return routeTwo.route_size;
+    }
+
+    public void SetRouteColour(Color colour, int routeNum = 1)
+    {
+        if (routeNum == 1)
+            routeOne.route_colour = colour;
+        else
+            routeTwo.route_colour = colour;
+    }
+
+    public RouteData GetRoute(int routeNum = 1)
+    {
+        if (routeNum == 1)
+            return routeOne;
+        else
+            return routeTwo;
+    }
+}
+
+public class RouteData
+{
+    public int route_size;
+    public Color route_colour;
+    public bool route_taken;
+
+    private bool isActive = false;
+
+    public RouteData()
+    {
+        route_size = 0;
+        route_colour = Color.gray;
+        route_taken = false;
+    }
+
+    public RouteData(int size, Color colour, bool taken)
+    {
+        route_size = size;
+        route_colour = colour;
+        route_taken = taken;
+
+        isActive = true;
+    }
+
+    public void SetRouteSize(int size) 
+    { 
+        route_size = size;
+        isActive = true;
+    }
+
+    public bool IsActive() { return isActive; }
+}
+
+public class MapData
+{
+    // Map points and triangle connections
+    public Shape mapShape;
+
+    // Two way connections between points calculated from triangles
+    public ConnectionData[] mapConnections;
+
+    public MapData() { }
+
+    public MapData(Shape shape, ConnectionData[] connections)
+    {
+        mapShape = shape;
+        mapConnections = connections;
+    }
+
+    public void CreateRouteLength()
+    {
+        // Find Min and Max distance of routes
+        float minDist = float.MaxValue;
+        float maxDist = float.MinValue;
+
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            float currentDist = mapConnections[i].GetDistance();
+
+            if (currentDist < minDist)
+                minDist = currentDist;
+            else if (currentDist > maxDist)
+                maxDist = currentDist;
+        }
+
+        // Create brackets for length of 1 to length of 6 routes
+        const int MAX_ROUTE_LENGTH = 6;
+        float difference = maxDist - minDist;
+        float bracket = difference / MAX_ROUTE_LENGTH;
+
+        // Assign length depending on the distance of the connection compared with the brackets
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            float currentDist = mapConnections[i].GetDistance();
+
+            for (int j = 0; j < MAX_ROUTE_LENGTH; j++)
+            {
+                if (currentDist <= minDist + (bracket * (j + 1)))
+                {
+                    mapConnections[i].SetRouteLength(j + 1);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void CreateRouteColours()
+    {
+        // Count number of active routes
+        int totalRoutesNum = 0;
+
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            if (mapConnections[i].GetRoute(1).IsActive())
+                totalRoutesNum++;
+            if (mapConnections[i].GetRoute(2).IsActive())
+                totalRoutesNum++;
+        }
+
+        // Create list of colours -> one for each route
+        // 10% of each of 8 colours, 20% leftover is grey
+        Color[] colours = new Color[] { Color.red, Color.green, Color.blue, Color.magenta, Color.black, Color.white, Color.yellow, new Color(1.0f, 0.64f, 0.0f), Color.grey, Color.grey };
+        List<Color> totalColours = new List<Color>();
+
+        for (int i = 0; i < totalRoutesNum; i++)
+        {
+            totalColours.Add(colours[i % 10]);
+        }
+
+        // Set the colours from the list
+        for (int i = 0; i < totalRoutesNum; i++)
+        {
+            ConnectionData currentConnection = mapConnections[i];
+
+            if (currentConnection.GetRoute(1).IsActive())
+            {
+                int randomIndex = Random.Range(0, totalColours.Count);
+                Color chosenColour = totalColours[randomIndex];
+                mapConnections[i].SetRouteColour(chosenColour);
+                totalColours.RemoveAt(randomIndex);
+            }
+            if (currentConnection.GetRoute(2).IsActive())
+            {
+                int randomIndex = Random.Range(0, totalColours.Count);
+                Color chosenColour = totalColours[randomIndex];
+                mapConnections[i].SetRouteColour(chosenColour, 2);
+                totalColours.RemoveAt(randomIndex);
+            }
+        }
+    }
+
+    public void DisplayRoutes(GameObject linePrefab)
+    {
+        Transform parentObject = new GameObject("Parent MultiLine Object").transform;
+
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            RouteData routeOne = mapConnections[i].GetRoute(1);
+            RouteData routeTwo = mapConnections[i].GetRoute(2);
+
+            Vector2 a = mapConnections[i].aPointPosition;
+            Vector2 b = mapConnections[i].bPointPosition;
+
+            if (routeOne.IsActive())
+            {
+                GameObject lineObject = GameObject.Instantiate(linePrefab, Vector3.zero, Quaternion.identity, parentObject);
+                lineObject.GetComponent<LineRendererSetup>().SetupLine(routeOne.route_size, routeOne.route_colour, new Vector3(a.x, 0, a.y), new Vector3(b.x, 0, b.y));
+            }
+
+            if (routeTwo.IsActive())
+            {
+                GameObject lineObject = GameObject.Instantiate(linePrefab, Vector3.zero, Quaternion.identity, parentObject);
+                lineObject.GetComponent<LineRendererSetup>().SetupLine(routeTwo.route_size, routeTwo.route_colour, new Vector3(a.x, 0, a.y), new Vector3(b.x, 0, b.y));
+            }
+        }
+    }
+>>>>>>> Stashed changes
 }
