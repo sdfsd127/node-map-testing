@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject lineObjectPrefab;
     [SerializeField] GameObject meshObjectPrefab;
+    [SerializeField] GameObject multiLineObjectPrefab;
     [SerializeField] Shader meshShader;
 
     public GameObject mapObject;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public bool delaunayTriangulating;
 
     public bool createConnections;
+    public bool produceEndMap;
 
     private void Start()
     {
@@ -28,16 +30,13 @@ public class GameManager : MonoBehaviour
         // Create connections between points using TRI list
         if (createConnections)
         {
-            ConnectionData[] connections = CreateConnections();
+            ConnectionData[] connections = CreateConnections(null);
             connections = RemoveDoubleConnections(connections);
             DisplayConnections(connections);
         }
-<<<<<<< Updated upstream
-=======
 
         if (produceEndMap)
             CreateFullMap();
->>>>>>> Stashed changes
     }
 
     private void Update()
@@ -134,9 +133,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private ConnectionData[] CreateConnections()
+    private ConnectionData[] CreateConnections(Shape shapeData)
     {
-        Shape shapeData = Triangulation.EarClipTriangulate(nodes);
+        if (shapeData == null)
+            shapeData = Triangulation.EarClipTriangulate(nodes);
 
         List<ConnectionData> connections = new List<ConnectionData>();
 
@@ -210,6 +210,9 @@ public class ConnectionData
 
     public int sizeOfConnection;
 
+    public RouteData routeOne = new RouteData();
+    public RouteData routeTwo = new RouteData();
+
     public ConnectionData() { }
 
     public ConnectionData(int ia, int ib, Vector2 va, Vector2 vb)
@@ -239,8 +242,6 @@ public class ConnectionData
         else
             return false;
     }
-<<<<<<< Updated upstream
-=======
 
     public float GetDistance()
     {
@@ -436,5 +437,4 @@ public class MapData
             }
         }
     }
->>>>>>> Stashed changes
 }
