@@ -111,6 +111,14 @@ public class GameManager : MonoBehaviour
 
     private void DisplayTriangleMeshes(Shape shapeData)
     {
+        if (shapeData == null)
+        {
+            if (delaunayTriangulating)
+                shapeData = Triangulation.DelaunayTriangulate(nodes);
+            else
+                shapeData = Triangulation.EarClipTriangulate(nodes);
+
+        }
         Vector3[] vertexPositions = shapeData._3DVertexPositions();
         Material material = new Material(meshShader);
 
@@ -136,8 +144,13 @@ public class GameManager : MonoBehaviour
     private ConnectionData[] CreateConnections(Shape shapeData)
     {
         if (shapeData == null)
-            shapeData = Triangulation.EarClipTriangulate(nodes);
-
+        {
+            if (earClipTriangulating)
+                shapeData = Triangulation.EarClipTriangulate(nodes);
+            else
+                shapeData = Triangulation.DelaunayTriangulate(nodes);
+        }
+        
         List<ConnectionData> connections = new List<ConnectionData>();
 
         for (int i = 0; i < shapeData.m_triangles.Length - 4; i += 3)
