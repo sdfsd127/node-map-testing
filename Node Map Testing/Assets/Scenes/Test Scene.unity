@@ -373,7 +373,8 @@ MonoBehaviour:
   multiLineObjectPrefab: {fileID: 392031674003750075, guid: 6a4c96182360e2348ac5d2dc05e42e58, type: 3}
   meshShader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
   mapObject: {fileID: 1515173257}
-  produceEndMap: 0
+  produceEndMap: 1
+  mutateMap: 0
 --- !u!4 &1104122784
 Transform:
   m_ObjectHideFlags: 0

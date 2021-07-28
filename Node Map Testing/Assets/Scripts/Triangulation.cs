@@ -362,6 +362,35 @@ public class TriangleData
 
         return false;
     }
+
+    public bool SharesMultipleVertex(TriangleData otherTri)
+    {
+        int vertexSharedNum = 0;
+
+        if (otherTri.positionA == positionA || otherTri.positionA == positionB || otherTri.positionA == positionC)
+            vertexSharedNum++;
+        if (otherTri.positionB == positionA || otherTri.positionB == positionB || otherTri.positionB == positionC)
+            vertexSharedNum++;
+        if (otherTri.positionC == positionA || otherTri.positionC == positionB || otherTri.positionC == positionC)
+            vertexSharedNum++;
+
+        if (vertexSharedNum > 1)
+            return true;
+        else
+            return false;
+    }
+
+    public Vector2 GetUniqueVertex(Vector2 a, Vector2 b)
+    {
+        if (positionA != a && positionA != b)
+            return positionA;
+        else if (positionB != a && positionB != b)
+            return positionB;
+        else if (positionC != a && positionC != b)
+            return positionC;
+        else
+            return Vector2.zero;
+    }
 }
 
 public class EdgeData

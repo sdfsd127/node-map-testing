@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] nodes;
 
     public bool produceEndMap;
+    public bool mutateMap;
 
     private void Start()
     {
@@ -42,6 +43,8 @@ public class GameManager : MonoBehaviour
 
         newMap.CreateRouteLength();
         newMap.CreateRouteColours();
+        if (mutateMap)
+            newMap.MutateRoutes();
         newMap.DisplayRoutes(multiLineObjectPrefab);
     }
 
@@ -143,6 +146,35 @@ public class ConnectionData
         bPointPosition = vb;
     }
 
+    public static ConnectionData GetSharedEdge(TriangleData triOne, TriangleData triTwo)
+    {
+        List<Vector2> repeatedVertex = new List<Vector2>();
+        List<Vector2> allVertex = new List<Vector2>();
+
+        allVertex.Add(triOne.positionA);
+        allVertex.Add(triOne.positionB);
+        allVertex.Add(triOne.positionC);
+
+        allVertex.Add(triTwo.positionA);
+        allVertex.Add(triTwo.positionB);
+        allVertex.Add(triTwo.positionC);
+
+        for (int i = 0; i < allVertex.Count; i++)
+        {
+            for (int j = 0; j < allVertex.Count; j++)
+            {
+                if (i == j)
+                    continue;
+
+                if (allVertex[i] == allVertex[j])
+                    if (!repeatedVertex.Contains(allVertex[i]))
+                        repeatedVertex.Add(allVertex[i]);
+            }
+        }
+
+        return new ConnectionData(repeatedVertex[0], repeatedVertex[1]);
+    }
+
     public override bool Equals(object obj)
     {
         if (obj == null || !this.GetType().Equals(obj.GetType()))
@@ -198,6 +230,25 @@ public class ConnectionData
         else
             return routeTwo;
     }
+
+    public void SetNewPositions(Vector2 a, Vector2 b)
+    {
+        aPointPosition = a;
+        bPointPosition = b;
+    }
+
+    public void DuplicateRoute()
+    {
+        routeTwo = new RouteData(routeOne.route_size, routeOne.route_colour, false);
+    }
+
+    public void RemoveRoute()
+    {
+        if (routeTwo.IsActive())
+            routeTwo = new RouteData();
+        else
+            routeOne = new RouteData();
+    }
 }
 
 public class RouteData
@@ -235,6 +286,11 @@ public class RouteData
 
 public class MapData
 {
+    public static int MUTATE_NUMBER = 20;
+    public static bool flip = false;
+    public static bool remove = true;
+    public static bool dupe = true;
+
     // Map points and triangle connections
     public Shape mapShape;
 
@@ -356,4 +412,114 @@ public class MapData
             }
         }
     }
+
+    public void MutateRoutes()
+    {
+        for (int i = 0; i < MUTATE_NUMBER; i++)
+        {
+            RandomMutate();
+        }
+    }
+
+    private void RandomMutate()
+    {
+        int randomChoice = Random.Range(0, 3);
+
+        switch (randomChoice)
+        {
+            case 0:
+                DuplicateEdge();
+                break;
+            case 1:
+                RemoveEdge();
+                break;
+            case 2:
+                FlipEdge();
+                break;
+            default:
+                Debug.Log("ERROR: Mutating");
+                break;
+        }
+    }
+
+    private void RemoveEdge()
+    {
+        if (!remove)
+            return;
+
+        mapConnections[GetRandomEdgeIndex()].RemoveRoute();
+    }
+
+    private void DuplicateEdge()
+    {
+        if (!dupe)
+            return;
+
+        mapConnections[GetRandomEdgeIndex()].DuplicateRoute();
+    }
+
+    private void FlipEdge()
+    {
+        if (!flip)
+            return;
+
+        List<TriangleData[]> connectingTriangles = new List<TriangleData[]>();
+
+        // Loop through all triangles
+        for (int i = 0; i < mapShape.m_triangles.Length; i++)
+        {
+            TriangleData currentTriangle = mapShape.m_triangles[i];
+
+            // Loop through all triangles again and compare each to each, except itself
+            for (int j = 0; j < mapShape.m_triangles.Length; j++)
+            {
+                if (i == j)
+                    continue;
+
+                TriangleData checkTriangle = mapShape.m_triangles[j];
+
+                if (currentTriangle.SharesMultipleVertex(checkTriangle))
+                {
+                    connectingTriangles.Add(new TriangleData[] { currentTriangle, checkTriangle  });
+                }
+            }
+        }
+
+        // Pick random one from possible
+        int randomIndex = Random.Range(0, connectingTriangles.Count);
+        TriangleData[] pairedTriangle = connectingTriangles[randomIndex];
+
+        // Find shared edge
+        ConnectionData sharedEdge = ConnectionData.GetSharedEdge(pairedTriangle[0], pairedTriangle[1]);
+
+        // Set A, B, C, D, ready for swap algebra
+        Vector2 a = sharedEdge.aPointPosition;
+        Vector2 c = sharedEdge.bPointPosition;
+
+        Vector2 b = pairedTriangle[0].GetUniqueVertex(a, c);
+        Vector2 d = pairedTriangle[1].GetUniqueVertex(a, c);
+
+        // Now want to swap the Triangles (A, B, C) and (A, C, D) to (D, B, C) and (A, B, D)
+        // Remove old A to C connection and replace it with D to B connection
+        int index = GetMapConnectionIndex(sharedEdge);
+        mapConnections[index].SetNewPositions(b, d);
+    }
+
+    private int GetMapConnectionIndex(ConnectionData connection)
+    {
+        int index = 1;
+
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            if (mapConnections[i].Equals(connection))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    private int GetRandomEdgeIndex() { return Random.Range(0, mapConnections.Length); }
 }
