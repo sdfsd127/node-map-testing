@@ -170,7 +170,18 @@ public static class Triangulation
         // Finished inserting each point, now remove the supertriangle
         triangles = RemoveSuperTriangleReliantTriangles(triangles, superTriangle);
 
-        return new Shape();
+        // Create a Shape object to return
+        int[] triangleIndices = new int[triangles.Count * 3];
+
+        for (int i = 0; i < triangles.Count; i++)
+        {
+            TriangleData currentTriangle = triangles[i];
+            triangleIndices[(i * 3) + 0] = currentTriangle.indexA;
+            triangleIndices[(i * 3) + 1] = currentTriangle.indexB;
+            triangleIndices[(i * 3) + 2] = currentTriangle.indexC;
+        }
+
+        return new Shape(vertexPositions, triangleIndices);
 
         /*
         // Create list of positions for the vertices using the nodes
@@ -341,7 +352,18 @@ public static class Triangulation
         // Finished inserting each point, now remove the supertriangle
         triangles = RemoveSuperTriangleReliantTriangles(triangles, superTriangle);
 
-        return new Shape();
+        // Create a Shape object to return
+        int[] triangleIndices = new int[triangles.Count * 3];
+
+        for (int i = 0; i < triangles.Count; i++)
+        {
+            TriangleData currentTriangle = triangles[i];
+            triangleIndices[(i * 3) + 0] = currentTriangle.indexA;
+            triangleIndices[(i * 3) + 1] = currentTriangle.indexB;
+            triangleIndices[(i * 3) + 2] = currentTriangle.indexC;
+        }
+
+        return new Shape(vertexPositions, triangleIndices);
     }
 
     public static bool IsVertexInsideTriangle(Vector2 vertex, Vector2 a, Vector2 b, Vector2 c)
@@ -549,13 +571,11 @@ public class Shape
 
     public Vector3[] _3DVertexPositions()
     {
-        List<Vector3> array = new List<Vector3>();
-        //new Vector3[m_vertices.Length];
-        Debug.Log(m_vertices.Length);
+        Vector3[] array = new Vector3[m_vertices.Length];
         for (int i = 0; i < m_vertices.Length; i++)
             array[i] = new Vector3(m_vertices[i].x, 0, m_vertices[i].y);
 
-        return array.ToArray();
+        return array;
     }
 }
 
