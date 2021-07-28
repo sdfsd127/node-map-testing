@@ -1,3 +1,5 @@
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,94 +7,7 @@ using System;
 
 public static class Triangulation
 {
-    public static Shape EarClipTriangulate(GameObject[] nodes)
-    {
-        // Create empty list of vertex indexes and populate them with their ID in ascending order
-        List<int> indexList = new List<int>();
-        for (int i = 0; i < nodes.Length; i++)
-            indexList.Add(i);
-
-        // Create empty list of triangles that will be populated through the algorithm
-        List<int> triangles = new List<int>();
-
-        // Get an array of the vertex positions from the nodes
-        Vector2[] vertexPositions = new Vector2[nodes.Length];
-        for (int i = 0; i < nodes.Length; i++)
-            vertexPositions[i] = new Vector2(nodes[i].transform.position.x, nodes[i].transform.position.z);
-
-        // Repeat algorithm until only 3 vertices are left in the list
-        // Infinite loop safety variable included
-        int loopCount = 0;
-        while (indexList.Count > 3 && loopCount < 1000)
-        {
-            for (int i = 0; i < indexList.Count; i++)
-            {
-                // Fetch 3 vertex indices used to make triangle
-                int pointA = indexList[i];
-                int pointB = Utils.GetItem(indexList, i - 1);
-                int pointC = Utils.GetItem(indexList, i + 1);
-
-                // Fetch the positions of the vertices
-                Vector2 vA = vertexPositions[pointA];
-                Vector2 vB = vertexPositions[pointB];
-                Vector2 vC = vertexPositions[pointC];
-
-                // Create heading vectors for cross product checks
-                Vector2 a_Heading_B = vB - vA;
-                Vector2 a_Heading_C = vC - vA;
-
-                // Check for a 180 or greater degree angle
-                if (Utils.CrossProductMagnitude(a_Heading_B, a_Heading_C) < 0.0f)
-                    continue;
-
-                // Begin check on all vertex to see if any are inside the triangle
-                bool earTriangleFound = true;
-
-                for (int j = 0; j < vertexPositions.Length; j++)
-                {
-                    // Ignore the vertices checking themselves
-                    if (j == pointA || j == pointB || j == pointC)
-                        continue;
-
-                    if (IsVertexInsideTriangle(vertexPositions[j], vB, vA, vC)) // Clockwise, B, A, C
-                    {
-                        // If inside, this is not an ear piece triangle
-                        earTriangleFound = false;
-                        break;
-                    }
-                }
-
-                // Check if the triangle was found to be an ear piece or not
-                if (earTriangleFound)
-                {
-                    // If found add the triangle and remove the origin (A) point from the index list
-                    // Clockwise order, B, A, C
-                    triangles.Add(pointB);
-                    triangles.Add(pointA);
-                    triangles.Add(pointC);
-
-                    indexList.RemoveAt(i);
-                    break;
-                }
-            }
-
-            loopCount++;
-        }
-
-        // Add the last triangle from the remaining vertices
-        if (indexList.Count == 3)
-        {
-            triangles.Add(indexList[0]);
-            triangles.Add(indexList[1]);
-            triangles.Add(indexList[2]);
-        }
-
-        // Create a TriangleSet object to return
-        Shape triangleSet = new Shape(vertexPositions, triangles.ToArray());
-        return triangleSet;
-    }
-
-    public static Shape DelaunayTriangulate(GameObject[] nodes)
+    public static Vector2[] NodesToPositions(GameObject[] nodes)
     {
         // Create list of positions for the vertices using the nodes
         Vector2[] vertexPositions = new Vector2[nodes.Length];
@@ -102,6 +17,11 @@ public static class Triangulation
             vertexPositions[i] = new Vector2(nodePosition.x, nodePosition.z);
         }
 
+        return vertexPositions;
+    }
+
+    public static Shape DelaunayTriangulate(Vector2[] vertexPositions)
+    {
         // Create empty and malleable list of triangles
         List<TriangleData> triangles = new List<TriangleData>();
 
@@ -140,13 +60,13 @@ public static class Triangulation
                 TriangleData currentBadTri = badTriangles[j];
 
                 // AB Edge
-                edges.Add(new EdgeData(0, 1, currentBadTri.positionA, currentBadTri.positionB));
+                edges.Add(new EdgeData(currentBadTri.positionA, currentBadTri.positionB));
 
                 // AC Edge
-                edges.Add(new EdgeData(0, 1, currentBadTri.positionA, currentBadTri.positionC));
+                edges.Add(new EdgeData(currentBadTri.positionA, currentBadTri.positionC));
 
                 // BC Edge
-                edges.Add(new EdgeData(0, 1, currentBadTri.positionB, currentBadTri.positionC));
+                edges.Add(new EdgeData(currentBadTri.positionB, currentBadTri.positionC));
             }
 
             // Loop through edges and find non-duplicates
@@ -162,7 +82,7 @@ public static class Triangulation
             for (int j = 0; j < polygon.Count; j++)
             {
                 EdgeData currentEdge = polygon[j];
-                TriangleData newTriangle = new TriangleData(0, 1, 2, currentVertex, currentEdge.positionA, currentEdge.positionB);
+                TriangleData newTriangle = new TriangleData(currentVertex, currentEdge.positionA, currentEdge.positionB);
                 triangles.Add(newTriangle);
             }
         }
@@ -171,199 +91,7 @@ public static class Triangulation
         triangles = RemoveSuperTriangleReliantTriangles(triangles, superTriangle);
 
         // Create a Shape object to return
-        int[] triangleIndices = new int[triangles.Count * 3];
-
-        for (int i = 0; i < triangles.Count; i++)
-        {
-            TriangleData currentTriangle = triangles[i];
-            triangleIndices[(i * 3) + 0] = currentTriangle.indexA;
-            triangleIndices[(i * 3) + 1] = currentTriangle.indexB;
-            triangleIndices[(i * 3) + 2] = currentTriangle.indexC;
-        }
-
-        return new Shape(vertexPositions, triangleIndices);
-
-        /*
-        // Create list of positions for the vertices using the nodes
-        Vector2[] vertexPositions = new Vector2[nodes.Length];
-        for (int i = 0; i < nodes.Length; i++)
-        {
-            Vector3 nodePosition = nodes[i].transform.position;
-            vertexPositions[i] = new Vector2(nodePosition.x, nodePosition.z);
-        }
-
-        // Create empty and malleable list of triangles
-        List<TriangleData> triangles = new List<TriangleData>();
-
-        // Determine super triangle
-        TriangleData superTriangle = FindSuperTriangle(vertexPositions);
-
-        // Update the index to match the new position in the array for vertices
-        superTriangle.SetTriangleArray(new int[] { nodes.Length + 1, nodes.Length + 2, nodes.Length + 3 });
-
-        // Reshape array and add super triangle vertices to end of vertex list
-        Array.Resize<Vector2>(ref vertexPositions, nodes.Length + 3); 
-        vertexPositions[nodes.Length + 0] = superTriangle.positionA;
-        vertexPositions[nodes.Length + 1] = superTriangle.positionB;
-        vertexPositions[nodes.Length + 2] = superTriangle.positionC;
-
-        // Add the super triangle to the triangle list
-        triangles.Add(superTriangle);
-
-        // Loop through each point in the vertex list
-        for (int i = 0; i < vertexPositions.Length; i++)
-        {
-            // Create empty edge list
-            List<EdgeData> edges = new List<EdgeData>();
-
-            // Loop through all triangles in triangle list
-            for (int t = 0; t < triangles.Count; t++)
-            {
-                TriangleData currentTriangle = triangles[t];
-
-                // Calculate and determine the circumcircle of the current triangle
-                float circleRadius;
-                Vector2 circleCentre;
-                GetCircumcircleData(currentTriangle, out circleRadius, out circleCentre);
-
-                // Check if the current vertex is inside the current triangles circumcircle
-                if (IsVertexInsideCircumcircle(vertexPositions[i], circleRadius, circleCentre))
-                {
-                    // Add the three triangle edges to the edge buffer
-                    // Edges AB, AC, and BC
-                    edges.Add(new EdgeData(currentTriangle.indexA, currentTriangle.indexB, currentTriangle.positionA, currentTriangle.positionB));
-                    edges.Add(new EdgeData(currentTriangle.indexA, currentTriangle.indexC, currentTriangle.positionA, currentTriangle.positionC));
-                    edges.Add(new EdgeData(currentTriangle.indexB, currentTriangle.indexC, currentTriangle.positionB, currentTriangle.positionC));
-
-                    // Remove the triangle from the triangle list
-                    triangles = RemoveTriangleFromList(triangles, currentTriangle);
-                }
-            }
-
-            // Remove all double specified edges
-            edges = RemoveDoublesFromList(edges);
-
-            // Connect the current point with each edge in the edge list to form triangles and add them to the list
-            for (int j = 0; j < edges.Count; j++)
-            {
-                EdgeData currentEdge = edges[j];
-                TriangleData newTriangle = new TriangleData(i, currentEdge.indexA, currentEdge.indexB, vertexPositions[i], currentEdge.positionA, currentEdge.positionB);
-                triangles.Add(newTriangle);
-            }
-        }
-
-        // Remove any triangles using the supertriangle from the triangle list
-        int superTriangleIndex = nodes.Length;
-        //triangles = RemoveSuperTriangleReliantTriangles(triangles, superTriangleIndex);
-
-        // Remove the super triangle vertices from the vertex list
-        Array.Resize<Vector2>(ref vertexPositions, nodes.Length);
-
-        // Create a TriangleSet object to return
-        int[] triangleIndices = new int[triangles.Count * 3];
-
-        for (int i = 0; i < triangles.Count; i++)
-        {
-            TriangleData currentTriangle = triangles[i];
-            triangleIndices[(i * 3) + 0] = currentTriangle.indexA;
-            triangleIndices[(i * 3) + 1] = currentTriangle.indexB;
-            triangleIndices[(i * 3) + 2] = currentTriangle.indexC;
-        }
-
-        Shape triangleSet = new Shape(vertexPositions, triangleIndices);
-        return triangleSet;*/
-    }
-
-    public static Shape BowyerWatsonDelaunayTriangulation(GameObject[] nodes)
-    {
-        // Create list of positions for the vertices using the nodes
-        Vector2[] vertexPositions = new Vector2[nodes.Length];
-        for (int i = 0; i < nodes.Length; i++)
-        {
-            Vector3 nodePosition = nodes[i].transform.position;
-            vertexPositions[i] = new Vector2(nodePosition.x, nodePosition.z);
-        }
-
-        // Create empty and malleable list of triangles
-        List<TriangleData> triangles = new List<TriangleData>();
-
-        // Determine super triangle
-        TriangleData superTriangle = FindSuperTriangle(vertexPositions);
-
-        // Add the super triangle to the triangle list
-        triangles.Add(superTriangle);
-
-        // Loop through each point
-        for (int i = 0; i < vertexPositions.Length; i++)
-        {
-            Vector2 currentVertex = vertexPositions[i];
-            List<TriangleData> badTriangles = new List<TriangleData>();
-
-            // Loop through each current triangle
-            for (int j = 0; j < triangles.Count; j++)
-            {
-                TriangleData currentTriangle = triangles[j];
-
-                // Calculate and determine the circumcircle of the current triangle
-                float circleRadius;
-                Vector2 circleCentre;
-                GetCircumcircleData(currentTriangle, out circleRadius, out circleCentre);
-
-                if (IsVertexInsideCircumcircle(currentVertex, circleRadius, circleCentre)) // Check if current point is in current triangle circumcircle
-                {
-                    badTriangles.Add(currentTriangle);
-                }
-            }
-
-            // Loop through each bad triangle and populate edge list
-            List<EdgeData> edges = new List<EdgeData>();
-            for (int j = 0; j < badTriangles.Count; j++)
-            {
-                TriangleData currentBadTri = badTriangles[j];
-
-                // AB Edge
-                edges.Add(new EdgeData(0, 1, currentBadTri.positionA, currentBadTri.positionB));
-
-                // AC Edge
-                edges.Add(new EdgeData(0, 1, currentBadTri.positionA, currentBadTri.positionC));
-
-                // BC Edge
-                edges.Add(new EdgeData(0, 1, currentBadTri.positionB, currentBadTri.positionC));
-            }
-
-            // Loop through edges and find non-duplicates
-            List<EdgeData> polygon = RemoveDoublesFromList(edges);
-
-            // Remove bad triangles from triangle list
-            for (int j = 0; j < badTriangles.Count; j++)
-            {
-                triangles = RemoveTriangleFromList(triangles, badTriangles[j]);
-            }
-
-            // Loop through each edge in polygon and re-triangulate it with the current point
-            for (int j = 0; j < polygon.Count; j++)
-            {
-                EdgeData currentEdge = polygon[j];
-                TriangleData newTriangle = new TriangleData(0, 1, 2, currentVertex, currentEdge.positionA, currentEdge.positionB);
-                triangles.Add(newTriangle);
-            }
-        }
-
-        // Finished inserting each point, now remove the supertriangle
-        triangles = RemoveSuperTriangleReliantTriangles(triangles, superTriangle);
-
-        // Create a Shape object to return
-        int[] triangleIndices = new int[triangles.Count * 3];
-
-        for (int i = 0; i < triangles.Count; i++)
-        {
-            TriangleData currentTriangle = triangles[i];
-            triangleIndices[(i * 3) + 0] = currentTriangle.indexA;
-            triangleIndices[(i * 3) + 1] = currentTriangle.indexB;
-            triangleIndices[(i * 3) + 2] = currentTriangle.indexC;
-        }
-
-        return new Shape(vertexPositions, triangleIndices);
+        return new Shape(vertexPositions, triangles.ToArray());
     }
 
     public static bool IsVertexInsideTriangle(Vector2 vertex, Vector2 a, Vector2 b, Vector2 c)
@@ -414,7 +142,7 @@ public static class Triangulation
         pointB = new Vector2(x_min - (4 * scaleModifier), y_min);
         pointC = new Vector2(x_max + (4 * scaleModifier), y_min);
 
-        return new TriangleData(0, 1, 2, pointA, pointB, pointC);
+        return new TriangleData(pointA, pointB, pointC);
     }
 
     public static void GetCircumcircleData(TriangleData triangle, out float radius, out Vector2 centre)
@@ -549,7 +277,7 @@ public static class Triangulation
 public class Shape
 {
     public Vector2[] m_vertices;
-    public int[] m_triangles;
+    public TriangleData[] m_triangles;
 
     public Shape() { }
 
@@ -558,12 +286,12 @@ public class Shape
         m_vertices = vertices;
     }
 
-    public Shape(int[] triangles)
+    public Shape(TriangleData[] triangles)
     {
         m_triangles = triangles;
     }
 
-    public Shape(Vector2[] vertices, int[] triangles)
+    public Shape(Vector2[] vertices, TriangleData[] triangles)
     {
         m_vertices = vertices;
         m_triangles = triangles;
@@ -579,19 +307,15 @@ public class Shape
     }
 }
 
+
 public class TriangleData
 {
-    public int indexA, indexB, indexC;
     public Vector2 positionA, positionB, positionC;
 
     public TriangleData() { }
 
-    public TriangleData(int ia, int ib, int ic, Vector2 pa, Vector2 pb, Vector2 pc)
+    public TriangleData(Vector2 pa, Vector2 pb, Vector2 pc)
     {
-        indexA = ia;
-        indexB = ib;
-        indexC = ic;
-
         positionA = pa;
         positionB = pb;
         positionC = pc;
@@ -626,23 +350,6 @@ public class TriangleData
         return new Vector3[] { new Vector3(positionA.x, 0, positionA.y), new Vector3(positionB.x, 0, positionB.y), new Vector3(positionC.x, 0, positionC.y) };
     }
 
-    public void SetTriangleArray(int[] array)
-    {
-        indexA = array[0];
-        indexB = array[1];
-        indexC = array[2];
-    }
-
-    public int[] GetTriangleArray()
-    {
-        return new int[] { indexA, indexB, indexC };
-    }
-
-    public int[] GetEmptyTriangleArray()
-    {
-        return new int[] { 0, 1, 2 };
-    }
-
     public bool SharesVertex(TriangleData otherTri)
     {
         // Check if this has any vertex shared with other tri
@@ -659,16 +366,12 @@ public class TriangleData
 
 public class EdgeData
 {
-    public int indexA, indexB;
     public Vector2 positionA, positionB;
 
     public EdgeData() { }
 
-    public EdgeData(int ia, int ib, Vector2 pa, Vector2 pb)
+    public EdgeData(Vector2 pa, Vector2 pb)
     {
-        indexA = ia;
-        indexB = ib;
-
         positionA = pa;
         positionB = pb;
     }
@@ -692,3 +395,5 @@ public class EdgeData
             return false;
     }
 }
+
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()

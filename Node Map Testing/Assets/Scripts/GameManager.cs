@@ -12,11 +12,6 @@ public class GameManager : MonoBehaviour
     public GameObject mapObject;
     private GameObject[] nodes;
 
-    public bool randomNodeSequence;
-    public bool earClipTriangulating;
-    public bool delaunayTriangulating;
-
-    public bool createConnections;
     public bool produceEndMap;
 
     private void Start()
@@ -24,35 +19,12 @@ public class GameManager : MonoBehaviour
         // Get the nodes on the map, random or sequenced, and use their positions
         GetNodes();
 
-        // Run the triangulation algorithm and calculate
-        Triangulate();
-
-        // Create connections between points using TRI list
-        if (createConnections)
-        {
-            ConnectionData[] connections = CreateConnections(null);
-            connections = RemoveDoubleConnections(connections);
-            DisplayConnections(connections);
-        }
-
         if (produceEndMap)
             CreateFullMap();
     }
 
     private void Update()
     {
-        // Runtime-REDO -> Generate new mesh
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            GameObject[] meshGameObjects = GameObject.FindGameObjectsWithTag("MeshObject");
-
-            foreach (GameObject g in meshGameObjects)
-                Destroy(g);
-
-            GetNodes();
-            Triangulate();
-        }
-
         if (Input.GetKeyUp(KeyCode.R))
         {
             CreateFullMap();
@@ -63,12 +35,19 @@ public class GameManager : MonoBehaviour
     {
         RemoveOldMap();
 
-        Shape newShape = Triangulation.EarClipTriangulate(nodes);
-        MapData newMap = new MapData(newShape, CreateConnections(newShape));
+        Vector2[] positions = Triangulation.NodesToPositions(nodes);
+        Shape newShape = Triangulation.DelaunayTriangulate(positions);
+        ConnectionData[] connections = RemoveDoubleConnections(CreateConnections(newShape));
+        MapData newMap = new MapData(newShape, connections);
 
         newMap.CreateRouteLength();
         newMap.CreateRouteColours();
         newMap.DisplayRoutes(multiLineObjectPrefab);
+    }
+
+    private void GetNodes()
+    {
+        nodes = mapObject.GetComponent<NodeSequence>().nodes;
     }
 
     private void RemoveOldMap()
@@ -78,91 +57,22 @@ public class GameManager : MonoBehaviour
             Destroy(oldMap);
     }
 
-    private void GetNodes()
-    {
-        if (randomNodeSequence)
-            nodes = mapObject.GetComponent<NodeRandomiser>().GetRandomNodeSequence();
-        else
-            nodes = mapObject.GetComponent<NodeSequence>().nodes;
-    }
-
-    private void Triangulate()
-    {
-        if (earClipTriangulating)
-            EarClipTriangulateMeshSetup();
-
-        if (delaunayTriangulating)
-            DelaunayTriangulateMeshSetup();
-    }
-
-    private void EarClipTriangulateMeshSetup()
-    {
-        // Ear Clipping Triangulation Visualisation Method
-        Shape shapeData = Triangulation.EarClipTriangulate(nodes);
-        DisplayTriangleMeshes(shapeData);
-    }
-
-    private void DelaunayTriangulateMeshSetup()
-    {
-        // Delaunay Triangulation Visualisation Method
-        Shape shapeData = Triangulation.DelaunayTriangulate(nodes);
-        DisplayTriangleMeshes(shapeData);
-    }
-
-    private void DisplayTriangleMeshes(Shape shapeData)
-    {
-        if (shapeData == null)
-        {
-            if (delaunayTriangulating)
-                shapeData = Triangulation.DelaunayTriangulate(nodes);
-            else
-                shapeData = Triangulation.EarClipTriangulate(nodes);
-
-        }
-        Vector3[] vertexPositions = shapeData._3DVertexPositions();
-        Material material = new Material(meshShader);
-
-        for (int i = 0; i < shapeData.m_triangles.Length; i += 3)
-        {
-            // Create the mesh object
-            GameObject triObject = Instantiate(meshObjectPrefab, Vector3.zero, Quaternion.identity);
-
-            // Create the vertices array
-            Vector3[] vertices = new Vector3[3];
-            vertices[0] = vertexPositions[shapeData.m_triangles[i + 0]];
-            vertices[1] = vertexPositions[shapeData.m_triangles[i + 1]];
-            vertices[2] = vertexPositions[shapeData.m_triangles[i + 2]];
-
-            // Create triangles array
-            int[] triangles = new int[3] { 0, 1, 2 };
-
-            // Apply the data to the objects script
-            triObject.GetComponent<TriangleMeshMaker>().CreateTriangle(vertices, triangles, material, new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)));
-        }
-    }
-
     private ConnectionData[] CreateConnections(Shape shapeData)
     {
-        if (shapeData == null)
-        {
-            if (earClipTriangulating)
-                shapeData = Triangulation.EarClipTriangulate(nodes);
-            else
-                shapeData = Triangulation.DelaunayTriangulate(nodes);
-        }
-        
         List<ConnectionData> connections = new List<ConnectionData>();
 
-        for (int i = 0; i < shapeData.m_triangles.Length - 4; i += 3)
+        for (int i = 0; i < shapeData.m_triangles.Length; i++)
         {
+            TriangleData currentTriangle = shapeData.m_triangles[i];
+
             // Connect AB
-            connections.Add(new ConnectionData(shapeData.m_triangles[i], shapeData.m_triangles[i + 1], shapeData.m_vertices[shapeData.m_triangles[i]], shapeData.m_vertices[shapeData.m_triangles[i + 1]]));
+            connections.Add(new ConnectionData(currentTriangle.positionA, currentTriangle.positionB));
 
             // Connect AC
-            connections.Add(new ConnectionData(shapeData.m_triangles[i], shapeData.m_triangles[i + 2], shapeData.m_vertices[shapeData.m_triangles[i]], shapeData.m_vertices[shapeData.m_triangles[i + 2]]));
+            connections.Add(new ConnectionData(currentTriangle.positionA, currentTriangle.positionC));
 
             // Connect BC
-            connections.Add(new ConnectionData(shapeData.m_triangles[i + 1], shapeData.m_triangles[i + 2], shapeData.m_vertices[shapeData.m_triangles[i + 1]], shapeData.m_vertices[shapeData.m_triangles[i + 2]]));
+            connections.Add(new ConnectionData(currentTriangle.positionB, currentTriangle.positionC));
         }
 
         return connections.ToArray();
@@ -213,13 +123,12 @@ public class GameManager : MonoBehaviour
         return false;
     }
 }
-
+#pragma warning disable CS0659
 public class ConnectionData
+#pragma warning restore CS0659
 {
     public Vector2 aPointPosition;
     public Vector2 bPointPosition;
-    public int aPointIndex;
-    public int bPointIndex;
 
     public int sizeOfConnection;
 
@@ -228,11 +137,8 @@ public class ConnectionData
 
     public ConnectionData() { }
 
-    public ConnectionData(int ia, int ib, Vector2 va, Vector2 vb)
+    public ConnectionData(Vector2 va, Vector2 vb)
     {
-        aPointIndex = ia;
-        bPointIndex = ib;
-
         aPointPosition = va;
         bPointPosition = vb;
     }
