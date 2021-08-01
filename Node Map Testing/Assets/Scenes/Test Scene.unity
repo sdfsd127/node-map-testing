@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &45098101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5090563032330313772, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
-  m_PrefabInstance: {fileID: 6786686973538370601}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &76178692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5090563030732504942, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
@@ -375,6 +370,8 @@ MonoBehaviour:
   mapObject: {fileID: 1515173257}
   produceEndMap: 1
   mutateMap: 0
+  refreshNodes: 0
+  produceDestinations: 1
 --- !u!4 &1104122784
 Transform:
   m_ObjectHideFlags: 0
@@ -412,6 +409,11 @@ GameObject:
 --- !u!1 &1401531436 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5090563032339726253, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
+  m_PrefabInstance: {fileID: 6786686973538370601}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1489307984 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5090563032044106479, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
   m_PrefabInstance: {fileID: 6786686973538370601}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1508351651 stripped
@@ -541,6 +543,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
+      propertyPath: randomNodeSequence
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
       propertyPath: nodes.Array.data[0]
       value: 
       objectReference: {fileID: 596605844}
@@ -567,19 +573,23 @@ PrefabInstance:
     - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
       propertyPath: nodes.Array.data[6]
       value: 
-      objectReference: {fileID: 754668270}
+      objectReference: {fileID: 254735396}
     - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
       propertyPath: nodes.Array.data[7]
       value: 
-      objectReference: {fileID: 254735396}
+      objectReference: {fileID: 76178692}
     - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
       propertyPath: nodes.Array.data[8]
       value: 
-      objectReference: {fileID: 76178692}
+      objectReference: {fileID: 754668270}
     - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
       propertyPath: nodes.Array.data[9]
       value: 
-      objectReference: {fileID: 45098101}
+      objectReference: {fileID: 1489307984}
+    - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
+      propertyPath: nodes.Array.data[10]
+      value: 
+      objectReference: {fileID: 2136418071}
     - target: {fileID: 7590696663932835175, guid: e6a50d3bbda3ac74cafe62a96ba51c51, type: 3}
       propertyPath: nodes.Array.data[13]
       value: 

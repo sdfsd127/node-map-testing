@@ -1,5 +1,3 @@
-#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,9 +33,10 @@ public static class Triangulation
         for (int i = 0; i < vertexPositions.Length; i++)
         {
             Vector2 currentVertex = vertexPositions[i];
+
+            // Loop through each current triangle and find the bad ones
             List<TriangleData> badTriangles = new List<TriangleData>();
 
-            // Loop through each current triangle
             for (int j = 0; j < triangles.Count; j++)
             {
                 TriangleData currentTriangle = triangles[j];
@@ -55,6 +54,7 @@ public static class Triangulation
 
             // Loop through each bad triangle and populate edge list
             List<EdgeData> edges = new List<EdgeData>();
+
             for (int j = 0; j < badTriangles.Count; j++)
             {
                 TriangleData currentBadTri = badTriangles[j];
@@ -88,7 +88,7 @@ public static class Triangulation
         }
 
         // Finished inserting each point, now remove the supertriangle
-        triangles = RemoveSuperTriangleReliantTriangles(triangles, superTriangle);
+        triangles = RemoveReliantTriangles(triangles, superTriangle);
 
         // Create a Shape object to return
         return new Shape(vertexPositions, triangles.ToArray());
@@ -252,7 +252,7 @@ public static class Triangulation
         return edgeList;
     }
 
-    public static List<TriangleData> RemoveSuperTriangleReliantTriangles(List<TriangleData> triList, TriangleData superTriangle)
+    public static List<TriangleData> RemoveReliantTriangles(List<TriangleData> triList, TriangleData targetTri)
     {
         List<int> indexToRemove = new List<int>();
 
@@ -260,7 +260,7 @@ public static class Triangulation
         {
             TriangleData currentTriangle = triList[i];
 
-            if (currentTriangle.SharesVertex(superTriangle))
+            if (currentTriangle.SharesVertex(targetTri))
                 indexToRemove.Add(i);
         }
 
@@ -338,6 +338,11 @@ public class TriangleData
             return true;
         else
             return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return positionA.GetHashCode() ^ positionB.GetHashCode() ^ positionC.GetHashCode();
     }
 
     public Vector2[] GetVertexArray2D()
@@ -423,6 +428,9 @@ public class EdgeData
         else
             return false;
     }
-}
 
-#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public override int GetHashCode()
+    {
+        return positionA.GetHashCode() ^ positionB.GetHashCode();
+    }
+}

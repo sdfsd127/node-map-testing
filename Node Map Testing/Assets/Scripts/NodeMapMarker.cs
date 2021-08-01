@@ -11,4 +11,6 @@ public class NodeMapMarker : MonoBehaviour
     {
         GetComponentInChildren<Text>().text = location_name.ToUpper();
     }
+
+    public string GetName() { return location_name; }
 }

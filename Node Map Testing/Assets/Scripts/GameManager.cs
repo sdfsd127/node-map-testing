@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
 
     public bool produceEndMap;
     public bool mutateMap;
+    public bool refreshNodes;
+
+    private DestinationManager destinationManager;
+    public static int MAX_DESTINATIONS = 5;
+    public bool produceDestinations;
 
     private void Start()
     {
@@ -36,8 +41,12 @@ public class GameManager : MonoBehaviour
     {
         RemoveOldMap();
 
+        if (refreshNodes)
+            GetNodes();
+
         Vector2[] positions = Triangulation.NodesToPositions(nodes);
         Shape newShape = Triangulation.DelaunayTriangulate(positions);
+
         ConnectionData[] connections = RemoveDoubleConnections(CreateConnections(newShape));
         MapData newMap = new MapData(newShape, connections);
 
@@ -46,11 +55,22 @@ public class GameManager : MonoBehaviour
         if (mutateMap)
             newMap.MutateRoutes();
         newMap.DisplayRoutes(multiLineObjectPrefab);
+
+        if (produceDestinations)
+        {
+            destinationManager = new DestinationManager();
+            DestinationData[] destinationData = destinationManager.GetDestinations(nodes, newMap);
+
+            Debug.Log(destinationData.Length);
+
+            JsonWriting jsonWrite = new JsonWriting();
+            jsonWrite.OutputDestinationJSON(destinationData);
+        }
     }
 
     private void GetNodes()
     {
-        nodes = mapObject.GetComponent<NodeSequence>().nodes;
+        nodes = mapObject.GetComponent<NodeSequence>().GetNodes();
     }
 
     private void RemoveOldMap()
@@ -125,15 +145,16 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+
+    private void ProduceDestinations()
+    {
+
+    }
 }
-#pragma warning disable CS0659
 public class ConnectionData
-#pragma warning restore CS0659
 {
     public Vector2 aPointPosition;
     public Vector2 bPointPosition;
-
-    public int sizeOfConnection;
 
     public RouteData routeOne = new RouteData();
     public RouteData routeTwo = new RouteData();
@@ -194,6 +215,11 @@ public class ConnectionData
             return false;
     }
 
+    public override int GetHashCode()
+    {
+        return aPointPosition.GetHashCode() ^ bPointPosition.GetHashCode() ^ routeOne.GetHashCode() ^ routeTwo.GetHashCode();
+    }
+
     public float GetDistance()
     {
         return Vector2.Distance(aPointPosition, bPointPosition);
@@ -249,6 +275,30 @@ public class ConnectionData
         else
             routeOne = new RouteData();
     }
+
+    public bool SharesVertex(Vector2 vertex)
+    {
+        if (aPointPosition == vertex || bPointPosition == vertex)
+            return true;
+        else 
+            return false;
+    }
+
+    public bool IsOneActive()
+    {
+        if (routeOne.IsActive() || routeTwo.IsActive())
+            return true;
+        else
+            return false;
+    }
+
+    public bool IsBothActive()
+    {
+        if (routeOne.IsActive() && routeTwo.IsActive())
+            return true;
+        else
+            return false;
+    }
 }
 
 public class RouteData
@@ -273,6 +323,11 @@ public class RouteData
         route_taken = taken;
 
         isActive = true;
+    }
+
+    public override int GetHashCode()
+    {
+        return route_size.GetHashCode() ^ route_colour.GetHashCode() ^ route_taken.GetHashCode() ^ isActive.GetHashCode();
     }
 
     public void SetRouteSize(int size) 
