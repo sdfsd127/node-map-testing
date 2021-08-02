@@ -1,1 +1,154 @@
-{"destinations":[{"start":"Athlone","finish":"Roscommon","pointValue":1},{"start":"Killarney","finish":"Tuam","pointValue":10},{"start":"Tralee","finish":"Limerick","pointValue":6},{"start":"Ennis","finish":"Roscommon","pointValue":7},{"start":"Athlone","finish":"Tralee","pointValue":11}]}
+{
+    "destinations": [
+        {
+            "start": "Tralee",
+            "finish": "Omagh",
+            "value": 11
+        },
+        {
+            "start": "Kilkenny",
+            "finish": "Sligo",
+            "value": 7
+        },
+        {
+            "start": "Galway",
+            "finish": "Mullingar",
+            "value": 5
+        },
+        {
+            "start": "Waterford",
+            "finish": "Drogheda",
+            "value": 7
+        },
+        {
+            "start": "Tralee",
+            "finish": "Ennis",
+            "value": 3
+        },
+        {
+            "start": "Ballina",
+            "finish": "Clonmel",
+            "value": 9
+        },
+        {
+            "start": "Ballina",
+            "finish": "Roscrea",
+            "value": 7
+        },
+        {
+            "start": "Galway",
+            "finish": "Omagh",
+            "value": 7
+        },
+        {
+            "start": "Ballina",
+            "finish": "Waterford",
+            "value": 10
+        },
+        {
+            "start": "Cavan",
+            "finish": "Omagh",
+            "value": 2
+        },
+        {
+            "start": "Roscommon",
+            "finish": "Athlone",
+            "value": 1
+        },
+        {
+            "start": "Naas",
+            "finish": "Mullingar",
+            "value": 2
+        },
+        {
+            "start": "Drogheda",
+            "finish": "Cork",
+            "value": 11
+        },
+        {
+            "start": "Tuam",
+            "finish": "Westport",
+            "value": 2
+        },
+        {
+            "start": "Mullingar",
+            "finish": "Wexford",
+            "value": 5
+        },
+        {
+            "start": "Tuam",
+            "finish": "Galway",
+            "value": 1
+        },
+        {
+            "start": "Drogheda",
+            "finish": "Cork",
+            "value": 11
+        },
+        {
+            "start": "Athlone",
+            "finish": "Belfast",
+            "value": 9
+        },
+        {
+            "start": "Kilkenny",
+            "finish": "Naas",
+            "value": 3
+        },
+        {
+            "start": "Mullingar",
+            "finish": "Tralee",
+            "value": 8
+        },
+        {
+            "start": "Omagh",
+            "finish": "Dingle",
+            "value": 12
+        },
+        {
+            "start": "Roscommon",
+            "finish": "Limerick",
+            "value": 4
+        },
+        {
+            "start": "Wexford",
+            "finish": "Cork",
+            "value": 6
+        },
+        {
+            "start": "Cavan",
+            "finish": "Athlone",
+            "value": 3
+        },
+        {
+            "start": "Cavan",
+            "finish": "Waterford",
+            "value": 7
+        },
+        {
+            "start": "Dundalk",
+            "finish": "Tralee",
+            "value": 12
+        },
+        {
+            "start": "Tuam",
+            "finish": "Waterford",
+            "value": 8
+        },
+        {
+            "start": "Tuam",
+            "finish": "Belfast",
+            "value": 10
+        },
+        {
+            "start": "Clonakilty",
+            "finish": "Cavan",
+            "value": 10
+        },
+        {
+            "start": "Castlebar",
+            "finish": "Letterkenny",
+            "value": 6
+        }
+    ]
+}

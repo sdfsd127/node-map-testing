@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public bool refreshNodes;
 
     private DestinationManager destinationManager;
-    public static int MAX_DESTINATIONS = 5;
+    public static int MAX_DESTINATIONS = 30;
     public bool produceDestinations;
 
     private void Start()

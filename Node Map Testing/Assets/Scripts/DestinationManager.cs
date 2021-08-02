@@ -116,8 +116,7 @@ public class DestinationManager
         exploringJourneys.Add(initialJourney);
 
         // Loop through and simulate the journeys to find the shortest path
-        int iterations = 0;
-        while (exploringJourneys.Count > 0 && iterations < 500)
+        while (exploringJourneys.Count > 0)
         {
             // Loop through all active journeys
             int loops = exploringJourneys.Count;
@@ -167,27 +166,10 @@ public class DestinationManager
                 exploringJourneys.Remove(toRemove[i]);
             }
             toRemove.Clear();
-
-            iterations++;
-        }
-
-        // Debug them all out
-        for (int i = 0; i < finishedJourneys.Count; i++)
-        {
-            Journey currentJourney = finishedJourneys[i];
-
-            Debug.Log("JOURNEY #" + i);
-            Debug.Log("POS : " + currentJourney.currentPosition);
-            Debug.Log("COST: " + currentJourney.currentCost);
-            Debug.Log("VISITED: " + currentJourney.visitedPlaces.Count);
         }
 
         // Find all the shortest of the journeys
         Journey shortestJourney = GetShortestJourney(finishedJourneys, b);
-
-        // Debuggin
-        Debug.Log("FINISHED JOURNEY LENGTH: " + finishedJourneys.Count);
-        Debug.Log("SHORTEST JOURNEY LENGTH: " + shortestJourney.currentCost);
 
         // Final return
         return shortestJourney;

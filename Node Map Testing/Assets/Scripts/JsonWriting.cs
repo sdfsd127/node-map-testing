@@ -18,10 +18,10 @@ public class JsonWriting
 
             destinationJSON.destinations[i].start = currentDestionationData.start;
             destinationJSON.destinations[i].finish = currentDestionationData.finish;
-            destinationJSON.destinations[i].pointValue = currentDestionationData.points;
+            destinationJSON.destinations[i].value = currentDestionationData.points;
         }
 
-        string jsonString = JsonUtility.ToJson(destinationJSON);
+        string jsonString = JsonUtility.ToJson(destinationJSON, true);
         File.WriteAllText(Application.dataPath + "/StreamingData/destinations.json", jsonString);
     }
 }
@@ -37,5 +37,5 @@ public class DestinationsJSON
 {
     public string start;
     public string finish;
-    public int pointValue;
+    public int value;
 }

@@ -334,6 +334,9 @@ MonoBehaviour:
   meshShader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
   mapObject: {fileID: 1515173257}
   produceEndMap: 1
+  mutateMap: 0
+  refreshNodes: 0
+  produceDestinations: 1
 --- !u!4 &1104122784
 Transform:
   m_ObjectHideFlags: 0
