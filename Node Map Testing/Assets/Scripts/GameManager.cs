@@ -57,15 +57,7 @@ public class GameManager : MonoBehaviour
         newMap.DisplayRoutes(multiLineObjectPrefab);
 
         if (produceDestinations)
-        {
-            destinationManager = new DestinationManager();
-            DestinationData[] destinationData = destinationManager.GetDestinations(nodes, newMap);
-
-            Debug.Log(destinationData.Length);
-
-            JsonWriting jsonWrite = new JsonWriting();
-            jsonWrite.OutputDestinationJSON(destinationData);
-        }
+            ProduceDestinations(newMap);
     }
 
     private void GetNodes()
@@ -146,9 +138,13 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    private void ProduceDestinations()
+    private void ProduceDestinations(MapData map)
     {
+        destinationManager = new DestinationManager();
+        DestinationData[] destinationData = destinationManager.GetDestinations(nodes, map);
 
+        JsonWriting jsonWrite = new JsonWriting();
+        jsonWrite.OutputDestinationJSON(destinationData);
     }
 }
 public class ConnectionData
@@ -284,6 +280,16 @@ public class ConnectionData
             return false;
     }
 
+    public Vector2 GetOtherVertex(Vector2 vertex)
+    {
+        if (vertex == aPointPosition)
+            return bPointPosition;
+        else if (vertex == bPointPosition)
+            return aPointPosition;
+        else
+            return new Vector2(-1, -1);
+    }
+
     public bool IsOneActive()
     {
         if (routeOne.IsActive() || routeTwo.IsActive())
@@ -346,6 +352,8 @@ public class MapData
     public static bool remove = true;
     public static bool dupe = true;
 
+    public int mapVertexNumber = 0;
+
     // Map points and triangle connections
     public Shape mapShape;
 
@@ -358,6 +366,8 @@ public class MapData
     {
         mapShape = shape;
         mapConnections = connections;
+
+        mapVertexNumber = shape.m_vertices.Length;
     }
 
     public void CreateRouteLength()
@@ -576,5 +586,37 @@ public class MapData
         return index;
     }
 
-    private int GetRandomEdgeIndex() { return Random.Range(0, mapConnections.Length); }
+    public ConnectionData[] GetAllConnectionsWithPoint(Vector2 point)
+    {
+        List<ConnectionData> connections = new List<ConnectionData>();
+        
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            if (mapConnections[i].SharesVertex(point))
+                connections.Add(mapConnections[i]);
+        }
+
+        return connections.ToArray();
+    }
+
+    public Vector2 GetVertex(int index) 
+    { 
+        return mapShape.m_vertices[index]; 
+    }
+
+    public int GetVertexIndex(Vector2 vertex)
+    {
+        for (int i = 0; i < mapShape.m_vertices.Length; i++)
+        {
+            if (vertex.Equals(mapShape.m_vertices[i]))
+                return i;
+        }
+
+        return -1;
+    }
+
+    private int GetRandomEdgeIndex() 
+    { 
+        return Random.Range(0, mapConnections.Length); 
+    }
 }

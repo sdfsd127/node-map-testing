@@ -67,4 +67,30 @@ public static class Utils
 
         return array[index];
     }
+
+    public static void PrintArray<T>(T[] array, string desc = "NULL")
+    {
+        if (desc != "NULL")
+            Debug.Log(desc);
+
+        Debug.Log("ARRAY START PRINTING:");
+        for (int i = 0; i < array.Length; i++)
+        {
+            Debug.Log(array[i]);
+        }
+        Debug.Log("ARRAY FINISH PRINTING:");
+    }
+
+    public static void PrintList<T>(List<T> list, string desc = "NULL")
+    {
+        if (desc != "NULL")
+            Debug.Log(desc);
+
+        Debug.Log("LIST START PRINTING:");
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(list[i]);
+        }
+        Debug.Log("LIST FINISH PRINTING:");
+    }
 }

@@ -56,10 +56,13 @@ public class DestinationManager
             destinations.Add(newDestination);
         }
 
-        // Name the destinations
+        // Loop through each destination
         for (int i = 0; i < destinations.Count; i++)
         {
+            // Name the destinations
             destinations[i].SetNames(GetNameFromPosition(nodes, destinations[i].a), GetNameFromPosition(nodes, destinations[i].b));
+            // Calculate and Assign values to the destinations
+            destinations[i].SetPointValue(GetPointValue(destinations[i].a, destinations[i].b, map));
         }
 
         return destinations.ToArray();
@@ -89,6 +92,140 @@ public class DestinationManager
         }
 
         return "NULL";
+    }
+
+    public static int GetPointValue(Vector2 pointA, Vector2 pointB, MapData map)
+    {
+        Journey shortestJourney = GetShortestPathBetweenPoints(pointA, pointB, map);
+        return shortestJourney.currentCost;
+    }
+
+    public static Journey GetShortestPathBetweenPoints(Vector2 a, Vector2 b, MapData map)
+    {
+        // Remember current shortest
+        int currentShortestLength = 100;
+
+        // List to populate of journeyed routes
+        List<Journey> finishedJourneys = new List<Journey>();
+        List<Journey> exploringJourneys = new List<Journey>();
+
+        List<Journey> toRemove = new List<Journey>();
+
+        // Create new journey to evaluate
+        Journey initialJourney = new Journey(a); // Start at point A
+        exploringJourneys.Add(initialJourney);
+
+        // Loop through and simulate the journeys to find the shortest path
+        int iterations = 0;
+        while (exploringJourneys.Count > 0 && iterations < 500)
+        {
+            // Loop through all active journeys
+            int loops = exploringJourneys.Count;
+            for (int i = 0; i < loops; i++)
+            {
+                // Find the current journey from the list
+                Journey currentJourney = exploringJourneys[i];
+
+                // If not at the end, search other connecting routes
+                if (currentJourney.currentPosition != b)
+                {
+                    // Find all connections from journey current position point
+                    ConnectionData[] connections = map.GetAllConnectionsWithPoint(currentJourney.currentPosition);
+                    connections = RemoveConnectionsContainingVisitedPoints(connections, currentJourney);
+
+                    // Loop through all found connections
+                    for (int j = 0; j < connections.Length; j++)
+                    {
+                        // Create a new journey at the other end of the connection
+                        Journey newJourney = new Journey(currentJourney);
+                        Vector2 otherPos = connections[j].GetOtherVertex(currentJourney.currentPosition);
+                        newJourney.Travel(otherPos, connections[j].GetRouteLength());
+
+                        // Only keep moving this journey if the cost is less than the current lowest
+                        if (newJourney.currentCost < currentShortestLength)
+                            exploringJourneys.Add(newJourney);
+                    }
+                }
+                else
+                {
+                    if (currentJourney.currentCost < currentShortestLength)
+                    {
+                        currentShortestLength = currentJourney.currentCost;
+                    }
+
+                    // Add to completely explored connections journey
+                    finishedJourneys.Add(currentJourney);
+                }
+
+                // Add to remove from explore list
+                toRemove.Add(currentJourney);
+            }
+
+            // Remove finished journeys from exploring list
+            for (int i = 0; i < toRemove.Count; i++)
+            {
+                exploringJourneys.Remove(toRemove[i]);
+            }
+            toRemove.Clear();
+
+            iterations++;
+        }
+
+        // Debug them all out
+        for (int i = 0; i < finishedJourneys.Count; i++)
+        {
+            Journey currentJourney = finishedJourneys[i];
+
+            Debug.Log("JOURNEY #" + i);
+            Debug.Log("POS : " + currentJourney.currentPosition);
+            Debug.Log("COST: " + currentJourney.currentCost);
+            Debug.Log("VISITED: " + currentJourney.visitedPlaces.Count);
+        }
+
+        // Find all the shortest of the journeys
+        Journey shortestJourney = GetShortestJourney(finishedJourneys, b);
+
+        // Debuggin
+        Debug.Log("FINISHED JOURNEY LENGTH: " + finishedJourneys.Count);
+        Debug.Log("SHORTEST JOURNEY LENGTH: " + shortestJourney.currentCost);
+
+        // Final return
+        return shortestJourney;
+    }
+
+    public static Journey GetShortestJourney(List<Journey> journeys, Vector2 target)
+    {
+        int currentShortestValue = int.MaxValue;
+        int currentShortestIndex = -1;
+
+        for (int i = 0; i < journeys.Count; i++)
+        {
+            Journey currentJourney = journeys[i];
+
+            if (currentJourney.currentPosition == target && currentJourney.currentCost < currentShortestValue)
+            {
+                currentShortestValue = currentJourney.currentCost;
+                currentShortestIndex = i;
+            }
+        }
+
+        return journeys[currentShortestIndex];
+    }
+
+    public static ConnectionData[] RemoveConnectionsContainingVisitedPoints(ConnectionData[] connections, Journey journey)
+    {
+        List<ConnectionData> newConnections = new List<ConnectionData>();
+
+        for (int i = 0; i < connections.Length; i++)
+        {
+            ConnectionData currentConnection = connections[i];
+            Vector2 otherPos = currentConnection.GetOtherVertex(journey.currentPosition);
+
+            if (!journey.HasVisitedPosition(otherPos))
+                newConnections.Add(currentConnection);
+        }
+
+        return newConnections.ToArray();
     }
 }
 
@@ -143,5 +280,48 @@ public class DestinationData
     public void SetPointValue(int pointValue)
     {
         points = pointValue;
+    }
+}
+
+public class Journey
+{
+    public Vector2 currentPosition;
+    public int currentCost;
+    public List<Vector2> visitedPlaces;
+
+    public Journey() { }
+
+    public Journey(Vector2 position)
+    {
+        currentPosition = position;
+        currentCost = 0;
+
+        visitedPlaces = new List<Vector2>();
+    }
+
+    public Journey(Journey oldJourney)
+    {
+        currentPosition = oldJourney.currentPosition;
+        currentCost = oldJourney.currentCost;
+        visitedPlaces = oldJourney.visitedPlaces;
+    }
+
+    public void Travel(Vector2 newPos, int moveCost)
+    {
+        visitedPlaces.Add(currentPosition);
+
+        currentCost += moveCost;
+        currentPosition = newPos;
+    }
+
+    public bool HasVisitedPosition(Vector2 position)
+    {
+        for (int i = 0; i < visitedPlaces.Count; i++)
+        {
+            if (visitedPlaces[i] == position)
+                return true;
+        }
+
+        return false;
     }
 }

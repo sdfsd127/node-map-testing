@@ -1,1 +1,1 @@
-{"destinations":[{"start":"Limerick","finish":"Tuam","pointValue":0},{"start":"Killarney","finish":"Tralee","pointValue":0},{"start":"Roscommon","finish":"Limerick","pointValue":0},{"start":"Killarney","finish":"Roscommon","pointValue":0},{"start":"Ennis","finish":"Tuam","pointValue":0}]}
+{"destinations":[{"start":"Athlone","finish":"Roscommon","pointValue":1},{"start":"Killarney","finish":"Tuam","pointValue":10},{"start":"Tralee","finish":"Limerick","pointValue":6},{"start":"Ennis","finish":"Roscommon","pointValue":7},{"start":"Athlone","finish":"Tralee","pointValue":11}]}

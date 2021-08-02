@@ -370,7 +370,7 @@ MonoBehaviour:
   mapObject: {fileID: 1515173257}
   produceEndMap: 1
   mutateMap: 0
-  refreshNodes: 0
+  refreshNodes: 1
   produceDestinations: 1
 --- !u!4 &1104122784
 Transform:
