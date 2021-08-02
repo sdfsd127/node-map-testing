@@ -4,68 +4,87 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] Shader meshShader;
     [SerializeField] GameObject lineObjectPrefab;
     [SerializeField] GameObject meshObjectPrefab;
     [SerializeField] GameObject multiLineObjectPrefab;
-    [SerializeField] Shader meshShader;
-
     public GameObject mapObject;
-    private GameObject[] nodes;
+    public bool AUTO_UPDATE;
+    private bool mapActive;
 
-    public bool produceEndMap;
-    public bool mutateMap;
-    public bool refreshNodes;
+    private GameObject[] nodes;
+    private NodeSequence nodeSequence;
+    private MapData currentMap;
 
     private DestinationManager destinationManager;
     public static int MAX_DESTINATIONS = 30;
-    public bool produceDestinations;
+
+    JsonWriting jsonWrite = new JsonWriting();
 
     private void Start()
     {
+        // Get the script from the node object
+        nodeSequence = mapObject.GetComponent<NodeSequence>();
+
+        // Set map active to current state of gameobject
+        mapActive = mapObject.activeInHierarchy;
+
         // Get the nodes on the map, random or sequenced, and use their positions
         GetNodes();
-
-        if (produceEndMap)
-            CreateFullMap();
     }
 
-    private void Update()
+    public void GetNodes()
     {
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            CreateFullMap();
-        }
+        nodes = nodeSequence.GetNodes();
     }
 
-    private void CreateFullMap()
+    public void CreateNewMap()
     {
-        RemoveOldMap();
-
-        if (refreshNodes)
-            GetNodes();
-
         Vector2[] positions = Triangulation.NodesToPositions(nodes);
         Shape newShape = Triangulation.DelaunayTriangulate(positions);
 
-        ConnectionData[] connections = RemoveDoubleConnections(CreateConnections(newShape));
-        MapData newMap = new MapData(newShape, connections);
+        ConnectionData[] connections = CreateConnections(newShape);
+        connections = RemoveDoubleConnections(connections);
 
+        MapData newMap = new MapData(newShape, connections);
         newMap.CreateRouteLength();
         newMap.CreateRouteColours();
-        if (mutateMap)
-            newMap.MutateRoutes();
-        newMap.DisplayRoutes(multiLineObjectPrefab);
 
-        if (produceDestinations)
-            ProduceDestinations(newMap);
+        currentMap = newMap;
     }
 
-    private void GetNodes()
+    public void DisplayMap()
     {
-        nodes = mapObject.GetComponent<NodeSequence>().GetNodes();
+        if (currentMap != null)
+        {
+            CleanupLines();
+            currentMap.DisplayRoutes(multiLineObjectPrefab);
+        }
     }
 
-    private void RemoveOldMap()
+    public void MutateMap()
+    {
+        if (currentMap != null)
+        {
+            currentMap.MutateRoutes();
+        }
+    }
+
+    public void ProduceDestinations()
+    {
+        destinationManager = new DestinationManager();
+        DestinationData[] destinationData = destinationManager.GetDestinations(nodes, currentMap);
+
+        jsonWrite.OutputDestinationJSON(destinationData);
+    }
+
+    public void ToggleMapActive()
+    {
+        mapActive = !mapActive;
+        mapObject.SetActive(mapActive);
+    }
+
+    private void CleanupLines()
     {
         GameObject oldMap = GameObject.Find("Parent MultiLine Object");
         if (oldMap != null)
@@ -93,25 +112,6 @@ public class GameManager : MonoBehaviour
         return connections.ToArray();
     }
 
-    private void DisplayConnections(ConnectionData[] connections)
-    {
-        for (int i = 0; i < connections.Length; i++)
-        {
-            ConnectionData currentConnection = connections[i];
-
-            // Create the line object
-            GameObject lineObject = Instantiate(lineObjectPrefab, Vector3.zero, Quaternion.identity);
-
-            // Create vertices array
-            Vector3[] vertices = new Vector3[2];
-            vertices[0] = new Vector3(currentConnection.aPointPosition.x, 0, currentConnection.aPointPosition.y);
-            vertices[1] = new Vector3(currentConnection.bPointPosition.x, 0, currentConnection.bPointPosition.y);
-
-            // Get the line renderer object
-            lineObject.GetComponent<LineRenderer>().SetPositions(vertices);
-        }
-    }
-
     private ConnectionData[] RemoveDoubleConnections(ConnectionData[] connections)
     {
         List<ConnectionData> existingConnections = new List<ConnectionData>();
@@ -136,15 +136,6 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
-    }
-
-    private void ProduceDestinations(MapData map)
-    {
-        destinationManager = new DestinationManager();
-        DestinationData[] destinationData = destinationManager.GetDestinations(nodes, map);
-
-        JsonWriting jsonWrite = new JsonWriting();
-        jsonWrite.OutputDestinationJSON(destinationData);
     }
 }
 public class ConnectionData
