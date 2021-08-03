@@ -16,10 +16,8 @@ public class GameManager : MonoBehaviour
     private NodeSequence nodeSequence;
     private MapData currentMap;
 
-    private DestinationManager destinationManager;
-    public static int MAX_DESTINATIONS = 30;
-
-    JsonWriting jsonWrite = new JsonWriting();
+    public static int MAX_DESTINATIONS = 10;
+    public static int MUTATE_AMOUNT = 5;
 
     private void Start()
     {
@@ -72,10 +70,20 @@ public class GameManager : MonoBehaviour
 
     public void ProduceDestinations()
     {
-        destinationManager = new DestinationManager();
-        DestinationData[] destinationData = destinationManager.GetDestinations(nodes, currentMap);
+        if (nodes == null)
+        {
+            Debug.Log("EMPTY NODES");
+            return;
+        }
+        
+        if (currentMap == null)
+        {
+            Debug.Log("EMPTY MAP");
+            return;
+        }
 
-        jsonWrite.OutputDestinationJSON(destinationData);
+        DestinationData[] destinationData = DestinationManager.GetDestinations(nodes, currentMap);
+        JsonWriting.OutputDestinationJSON(destinationData);
     }
 
     public void ToggleMapActive()
@@ -207,17 +215,12 @@ public class ConnectionData
         return aPointPosition.GetHashCode() ^ bPointPosition.GetHashCode() ^ routeOne.GetHashCode() ^ routeTwo.GetHashCode();
     }
 
-    public float GetDistance()
-    {
-        return Vector2.Distance(aPointPosition, bPointPosition);
-    }
-
-    public void SetRouteLength(int length, int routeNum = 1)
+    public RouteData GetRoute(int routeNum = 1)
     {
         if (routeNum == 1)
-            routeOne.SetRouteSize(length);
+            return routeOne;
         else
-            routeTwo.SetRouteSize(length);
+            return routeTwo;
     }
 
     public int GetRouteLength(int routeNum = 1)
@@ -228,6 +231,19 @@ public class ConnectionData
             return routeTwo.route_size;
     }
 
+    public void SetRouteLength(int length, int routeNum = 1)
+    {
+        if (routeNum == 1)
+            routeOne.SetRouteSize(length);
+        else
+            routeTwo.SetRouteSize(length);
+    }
+
+    public float GetDistance()
+    {
+        return Vector2.Distance(aPointPosition, bPointPosition);
+    }
+
     public void SetRouteColour(Color colour, int routeNum = 1)
     {
         if (routeNum == 1)
@@ -236,38 +252,17 @@ public class ConnectionData
             routeTwo.route_colour = colour;
     }
 
-    public RouteData GetRoute(int routeNum = 1)
-    {
-        if (routeNum == 1)
-            return routeOne;
-        else
-            return routeTwo;
-    }
-
     public void SetNewPositions(Vector2 a, Vector2 b)
     {
         aPointPosition = a;
         bPointPosition = b;
     }
 
-    public void DuplicateRoute()
-    {
-        routeTwo = new RouteData(routeOne.route_size, routeOne.route_colour, false);
-    }
-
-    public void RemoveRoute()
-    {
-        if (routeTwo.IsActive())
-            routeTwo = new RouteData();
-        else
-            routeOne = new RouteData();
-    }
-
     public bool SharesVertex(Vector2 vertex)
     {
         if (aPointPosition == vertex || bPointPosition == vertex)
             return true;
-        else 
+        else
             return false;
     }
 
@@ -295,6 +290,20 @@ public class ConnectionData
             return true;
         else
             return false;
+    }
+
+    public void DuplicateRoute()
+    {
+        if (routeOne.IsActive() && !routeTwo.IsActive())
+            routeTwo = new RouteData(routeOne.route_size, routeOne.route_colour, false);
+    }
+
+    public void RemoveRoute()
+    {
+        if (routeTwo.IsActive())
+            routeTwo = new RouteData();
+        else
+            routeOne = new RouteData();
     }
 }
 
@@ -338,7 +347,6 @@ public class RouteData
 
 public class MapData
 {
-    public static int MUTATE_NUMBER = 20;
     public static bool flip = false;
     public static bool remove = true;
     public static bool dupe = true;
@@ -464,14 +472,24 @@ public class MapData
             if (routeTwo.IsActive())
             {
                 GameObject lineObject = GameObject.Instantiate(linePrefab, Vector3.zero, Quaternion.identity, parentObject);
-                lineObject.GetComponent<LineRendererSetup>().SetupLine(routeTwo.route_size, routeTwo.route_colour, new Vector3(a.x, 0, a.y), new Vector3(b.x, 0, b.y));
+
+                // Create route two offset (so we can see both lines)
+                float distanceStrength = 0.15f;
+                Vector2 heading = (b - a).normalized;
+                Vector2 headingPerp = Utils.GetPerpendicularVectorClockwise(heading);
+                Vector2 modVector = headingPerp * distanceStrength;
+
+                Vector2 modifiedA = a + modVector;
+                Vector2 modifiedB = b + modVector;
+
+                lineObject.GetComponent<LineRendererSetup>().SetupLine(routeTwo.route_size, routeTwo.route_colour, new Vector3(modifiedA.x, 0, modifiedA.y), new Vector3(modifiedB.x, 0, modifiedB.y));
             }
         }
     }
 
     public void MutateRoutes()
     {
-        for (int i = 0; i < MUTATE_NUMBER; i++)
+        for (int i = 0; i < GameManager.MUTATE_AMOUNT; i++)
         {
             RandomMutate();
         }
@@ -498,20 +516,45 @@ public class MapData
         }
     }
 
-    private void RemoveEdge()
-    {
-        if (!remove)
-            return;
-
-        mapConnections[GetRandomEdgeIndex()].RemoveRoute();
-    }
-
     private void DuplicateEdge()
     {
         if (!dupe)
             return;
 
-        mapConnections[GetRandomEdgeIndex()].DuplicateRoute();
+        mapConnections[GetRandomSingleActiveEdgeIndex()].DuplicateRoute();
+    }
+
+    private void RemoveEdge()
+    {
+        if (!remove)
+            return;
+
+        mapConnections[GetRandomEitherActiveEdgeIndex()].RemoveRoute();
+    }
+    private int GetRandomSingleActiveEdgeIndex()
+    {
+        List<int> activeIndexes = new List<int>();
+
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            if (mapConnections[i].IsOneActive())
+                activeIndexes.Add(i);
+        }
+
+        return activeIndexes[Random.Range(0, activeIndexes.Count)];
+    }
+
+    private int GetRandomEitherActiveEdgeIndex()
+    {
+        List<int> activeIndexes = new List<int>();
+
+        for (int i = 0; i < mapConnections.Length; i++)
+        {
+            if (mapConnections[i].IsOneActive() || mapConnections[i].IsBothActive())
+                activeIndexes.Add(i);
+        }
+
+        return activeIndexes[Random.Range(0, activeIndexes.Count)];
     }
 
     private void FlipEdge()
@@ -604,10 +647,5 @@ public class MapData
         }
 
         return -1;
-    }
-
-    private int GetRandomEdgeIndex() 
-    { 
-        return Random.Range(0, mapConnections.Length); 
     }
 }

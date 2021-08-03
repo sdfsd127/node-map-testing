@@ -5,9 +5,10 @@ using System;
 
 public class DestinationManager
 {
-    public DestinationData[] GetDestinations(GameObject[] nodes, MapData map)
+    public static DestinationData[] GetDestinations(GameObject[] nodes, MapData map)
     {
-        List<DestinationData> destinations = new List<DestinationData>();
+        int totalDestinations = GameManager.MAX_DESTINATIONS;
+        DestinationData[] destinations = new DestinationData[totalDestinations];
 
         // Get positions of node
         Vector2[] points = Triangulation.NodesToPositions(nodes);
@@ -41,7 +42,7 @@ public class DestinationManager
         }
 
         // Now make the destinations
-        for (int i = 0; i < GameManager.MAX_DESTINATIONS; i++)
+        for (int i = 0; i < totalDestinations; i++)
         {
             int randomStartIndex = UnityEngine.Random.Range(0, possibleLocations.Count);
             Vector2 startPos = possibleLocations[randomStartIndex];
@@ -52,23 +53,23 @@ public class DestinationManager
             Vector2 finishPos = possibleMatches[randomFinishIndex];
             possibleLocations.Remove(finishPos);
 
-            DestinationData newDestination = new DestinationData(startPos, finishPos);
-            destinations.Add(newDestination);
+            destinations[i] = new DestinationData(startPos, finishPos);
         }
 
         // Loop through each destination
-        for (int i = 0; i < destinations.Count; i++)
+        for (int i = 0; i < totalDestinations; i++)
         {
+
             // Name the destinations
             destinations[i].SetNames(GetNameFromPosition(nodes, destinations[i].a), GetNameFromPosition(nodes, destinations[i].b));
             // Calculate and Assign values to the destinations
             destinations[i].SetPointValue(GetPointValue(destinations[i].a, destinations[i].b, map));
         }
 
-        return destinations.ToArray();
+        return destinations;
     }
 
-    private Vector2[] GetAllNonDupes(List<Vector2> list, Vector2 target)
+    private static Vector2[] GetAllNonDupes(List<Vector2> list, Vector2 target)
     {
         List<Vector2> nonDupes = new List<Vector2>();
 
@@ -81,7 +82,7 @@ public class DestinationManager
         return nonDupes.ToArray();
     }
 
-    private string GetNameFromPosition(GameObject[] nodes, Vector2 position)
+    public static string GetNameFromPosition(GameObject[] nodes, Vector2 position)
     {
         for (int i = 0; i < nodes.Length; i++)
         {

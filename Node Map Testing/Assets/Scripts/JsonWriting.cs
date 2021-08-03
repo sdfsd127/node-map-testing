@@ -4,9 +4,9 @@ using UnityEngine;
 using System.IO;
 using System;
 
-public class JsonWriting
+public static class JsonWriting
 {
-    public void OutputDestinationJSON(DestinationData[] destinations)
+    public static void OutputDestinationJSON(DestinationData[] destinations)
     {
         DestinationsJSON_Array destinationJSON = new DestinationsJSON_Array();
         Array.Resize<DestinationsJSON>(ref destinationJSON.destinations, destinations.Length);

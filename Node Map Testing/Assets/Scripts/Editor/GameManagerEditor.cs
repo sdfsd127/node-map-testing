@@ -21,6 +21,12 @@ public class GameManagerEditor : Editor
         if (GUILayout.Button("Get Fresh Nodes"))
         {
             gameManager.GetNodes();
+
+            if (gameManager.AUTO_UPDATE)
+            {
+                gameManager.CreateNewMap();
+                gameManager.DisplayMap();
+            }
         }
 
         // New Map
@@ -42,7 +48,7 @@ public class GameManagerEditor : Editor
         }
 
         // Display Map
-        if (GUILayout.Button("Display Map"))
+        if (!gameManager.AUTO_UPDATE && GUILayout.Button("Display Map"))
         {
             gameManager.DisplayMap();
         }

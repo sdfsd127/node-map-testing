@@ -29,7 +29,7 @@ public class LineRendererSetup : MonoBehaviour
 
     private void SetLength(int size, Vector3 startPoint, Vector3 endPoint)
     {
-        if (size != 1) // Line has gaps, time to do math -> Create multiple line renderers with gaps to form line
+        if (size > 1 && size < 7) // Line has gaps, time to do math -> Create multiple line renderers with gaps to form line
         {
             // Calc line details
             float lineRealSize = Vector3.Distance(startPoint, endPoint);
