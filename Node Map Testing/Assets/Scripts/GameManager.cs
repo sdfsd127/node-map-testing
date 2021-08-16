@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CM_Utilities;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         Vector2[] positions = Triangulation.NodesToPositions(nodes);
         Shape newShape = Triangulation.DelaunayTriangulate(positions);
+        //newShape = Triangulation.Delaunay2ndPassTriangulate(newShape);
 
         ConnectionData[] connections = CreateConnections(newShape);
         connections = RemoveDoubleConnections(connections);

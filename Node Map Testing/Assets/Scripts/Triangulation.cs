@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using CM_Utilities;
 
 public static class Triangulation
 {
@@ -22,6 +23,90 @@ public static class Triangulation
     {
         // Create empty and malleable list of triangles
         List<TriangleData> triangles = new List<TriangleData>();
+
+        // Determine super triangle
+        TriangleData superTriangle = FindSuperTriangle(vertexPositions);
+
+        // Add the super triangle to the triangle list
+        triangles.Add(superTriangle);
+
+        // Loop through each point
+        for (int i = 0; i < vertexPositions.Length; i++)
+        {
+            Vector2 currentVertex = vertexPositions[i];
+
+            // Loop through each current triangle and find the bad ones
+            List<TriangleData> badTriangles = new List<TriangleData>();
+
+            for (int j = 0; j < triangles.Count; j++)
+            {
+                TriangleData currentTriangle = triangles[j];
+
+                // Calculate and determine the circumcircle of the current triangle
+                float circleRadius;
+                Vector2 circleCentre;
+                GetCircumcircleData(currentTriangle, out circleRadius, out circleCentre);
+
+                if (IsVertexInsideCircumcircle(currentVertex, circleRadius, circleCentre)) // Check if current point is in current triangle circumcircle
+                {
+                    badTriangles.Add(currentTriangle);
+                }
+            }
+
+            // Loop through each bad triangle and populate edge list
+            List<EdgeData> edges = new List<EdgeData>();
+
+            for (int j = 0; j < badTriangles.Count; j++)
+            {
+                TriangleData currentBadTri = badTriangles[j];
+
+                // AB Edge
+                edges.Add(new EdgeData(currentBadTri.positionA, currentBadTri.positionB));
+
+                // AC Edge
+                edges.Add(new EdgeData(currentBadTri.positionA, currentBadTri.positionC));
+
+                // BC Edge
+                edges.Add(new EdgeData(currentBadTri.positionB, currentBadTri.positionC));
+            }
+
+            // Loop through edges and find non-duplicates
+            List<EdgeData> polygon = RemoveDoublesFromList(edges);
+
+            // Remove bad triangles from triangle list
+            for (int j = 0; j < badTriangles.Count; j++)
+            {
+                triangles = RemoveTriangleFromList(triangles, badTriangles[j]);
+            }
+
+            // Loop through each edge in polygon and re-triangulate it with the current point
+            for (int j = 0; j < polygon.Count; j++)
+            {
+                EdgeData currentEdge = polygon[j];
+                TriangleData newTriangle = new TriangleData(currentVertex, currentEdge.positionA, currentEdge.positionB);
+                triangles.Add(newTriangle);
+            }
+        }
+
+
+        Utils.PrintListSize(triangles, "BEFORE SUPER REMOVE");
+        // Finished inserting each point, now remove the supertriangle
+        triangles = RemoveReliantTriangles(triangles, superTriangle);
+
+        Utils.PrintListSize(triangles, "AFTER SUPER REMOVE");
+
+        // Create a Shape object to return
+        return new Shape(vertexPositions, triangles.ToArray());
+    }
+
+    public static Shape Delaunay2ndPassTriangulate(Shape shape)
+    {
+        Vector2[] vertexPositions = shape.m_vertices;
+
+        // Create empty and malleable list of triangles
+        List<TriangleData> triangles = new List<TriangleData>();
+        for (int i = 0; i < shape.m_triangles.Length; i++)
+            triangles.Add(shape.m_triangles[i]);
 
         // Determine super triangle
         TriangleData superTriangle = FindSuperTriangle(vertexPositions);
