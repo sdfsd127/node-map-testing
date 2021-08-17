@@ -30,10 +30,13 @@ public static class Triangulation
         // Add the super triangle to the triangle list
         triangles.Add(superTriangle);
 
+        // Add the vertices of the super triangles to the array of vertexes -> but keep them separate too
+        Vector2[] vertices = AddSuperTriangleToVertices(vertexPositions, superTriangle);
+        
         // Loop through each point
-        for (int i = 0; i < vertexPositions.Length; i++)
+        for (int i = 0; i < vertices.Length; i++)
         {
-            Vector2 currentVertex = vertexPositions[i];
+            Vector2 currentVertex = vertices[i];
 
             // Loop through each current triangle and find the bad ones
             List<TriangleData> badTriangles = new List<TriangleData>();
@@ -88,12 +91,8 @@ public static class Triangulation
             }
         }
 
-
-        Utils.PrintListSize(triangles, "BEFORE SUPER REMOVE");
         // Finished inserting each point, now remove the supertriangle
         triangles = RemoveReliantTriangles(triangles, superTriangle);
-
-        Utils.PrintListSize(triangles, "AFTER SUPER REMOVE");
 
         // Create a Shape object to return
         return new Shape(vertexPositions, triangles.ToArray());
@@ -228,6 +227,21 @@ public static class Triangulation
         pointC = new Vector2(x_max + (4 * scaleModifier), y_min);
 
         return new TriangleData(pointA, pointB, pointC);
+    }
+
+    public static Vector2[] AddSuperTriangleToVertices(Vector2[] vertices, TriangleData superTriangle)
+    {
+        int verticesNum = vertices.Length;
+
+        Vector2[] newVertices = new Vector2[verticesNum + 3];
+        for (int i = 0; i < verticesNum; i++)
+            newVertices[i] = vertices[i];
+
+        newVertices[verticesNum + 0] = superTriangle.positionA;
+        newVertices[verticesNum + 1] = superTriangle.positionB;
+        newVertices[verticesNum + 2] = superTriangle.positionC;
+
+        return newVertices;
     }
 
     public static void GetCircumcircleData(TriangleData triangle, out float radius, out Vector2 centre)

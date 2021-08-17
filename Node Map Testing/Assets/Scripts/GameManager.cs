@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject multiLineObjectPrefab;
     public GameObject mapObject;
     public bool AUTO_UPDATE;
+    private bool debugMode;
     private bool mapActive;
+    private bool namesActive;
 
     private GameObject[] nodes;
     private NodeSequence nodeSequence;
@@ -30,6 +32,9 @@ public class GameManager : MonoBehaviour
 
         // Get the nodes on the map, random or sequenced, and use their positions
         GetNodes();
+
+        // Setup UI
+        UIManager.Instance.SetupNames(nodes, debugMode);
     }
 
     public void GetNodes()
@@ -94,6 +99,27 @@ public class GameManager : MonoBehaviour
         mapObject.SetActive(mapActive);
     }
 
+    public bool IsMapActive()
+    {
+        if (mapActive)
+            return true;
+        else
+            return false;
+    }
+
+    public bool IsMapNull()
+    {
+        if (currentMap == null)
+            return true;
+        else
+            return false;
+    }
+
+    public MapData GetCurrentMap()
+    {
+        return currentMap;
+    }
+
     private void CleanupLines()
     {
         GameObject oldMap = GameObject.Find("Parent MultiLine Object");
@@ -147,7 +173,56 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
+
+    private void RemoveConnection(int index)
+    {
+        MapData newMapData = currentMap;
+        List<ConnectionData> newConnections = new List<ConnectionData>();
+
+        for (int i = 0; i < currentMap.mapConnections.Length; i++)
+        {
+            if (i == index)
+                continue;
+
+            newConnections.Add(currentMap.mapConnections[i]);
+        }
+
+        newMapData.mapConnections = newConnections.ToArray();
+        currentMap = newMapData;
+    }
+
+    // EXTERNAL
+    public bool IsDebugging()
+    {
+        return debugMode;
+    }
+
+    public void ToggleDebugMode()
+    {
+        debugMode = !debugMode;
+    }
+
+    public void RemoveConnectionButton(int index)
+    {
+        if (!IsMapNull())
+        {
+            RemoveConnection(index);
+        }
+    }
+
+    public GameObject[] GetNodeObjects()
+    {
+        return nodes;
+    }
+
+    public void ToggleLocationNames()
+    {
+        namesActive = !namesActive;
+        UIManager.Instance.SetNameVisiblity(namesActive);
+    }
 }
+
+[System.Serializable]
 public class ConnectionData
 {
     public Vector2 aPointPosition;
@@ -309,6 +384,7 @@ public class ConnectionData
     }
 }
 
+[System.Serializable]
 public class RouteData
 {
     public int route_size;

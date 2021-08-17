@@ -1,54 +1,54 @@
 {
     "destinations": [
         {
-            "start": "Drogheda",
-            "finish": "Clonakilty",
-            "value": 11
+            "start": "Wexford",
+            "finish": "Drogheda",
+            "value": 5
         },
         {
-            "start": "Kilkenny",
+            "start": "Cavan",
             "finish": "Mullingar",
-            "value": 4
-        },
-        {
-            "start": "Ennis",
-            "finish": "Galway",
             "value": 2
         },
         {
-            "start": "Mullingar",
-            "finish": "Waterford",
-            "value": 5
-        },
-        {
-            "start": "Lisburn",
-            "finish": "Naas",
-            "value": 5
-        },
-        {
-            "start": "Killarney",
-            "finish": "Dundalk",
-            "value": 10
-        },
-        {
             "start": "Athlone",
-            "finish": "Dundalk",
+            "finish": "Carlow",
+            "value": 4
+        },
+        {
+            "start": "Letterkenny",
+            "finish": "Mullingar",
+            "value": 5
+        },
+        {
+            "start": "Clonmel",
+            "finish": "Omagh",
             "value": 6
         },
         {
-            "start": "Westport",
-            "finish": "Belfast",
-            "value": 10
+            "start": "Tuam",
+            "finish": "Wexford",
+            "value": 8
         },
         {
-            "start": "Dingle",
-            "finish": "Drogheda",
-            "value": 12
+            "start": "Ballina",
+            "finish": "Limerick",
+            "value": 5
         },
         {
-            "start": "Limerick",
-            "finish": "Sligo",
+            "start": "Carlow",
+            "finish": "Athlone",
+            "value": 4
+        },
+        {
+            "start": "Enniskillen",
+            "finish": "Cork",
             "value": 6
+        },
+        {
+            "start": "Mullingar",
+            "finish": "Dublin",
+            "value": 3
         }
     ]
 }
